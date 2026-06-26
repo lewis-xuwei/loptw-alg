@@ -1,0 +1,19 @@
+[requires]
+soplex/8.0.2
+nlohmann_json/3.12.0
+spdlog/1.17.0
+fmt/12.1.0
+doctest/2.4.12
+cpptoml/0.1.1
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[layout]
+cmake_layout
+
+[options]
+*:shared=False
+*:fPIC = False
+

@@ -1,0 +1,8 @@
+organization = "SZU"
+name = "Parallel branch and cut algorithm for loptw"
+maintainer = "xuwei"
+email = "lewis.xuwei@outlook.com"
+
+[log]
+level = "Info"
+appender = "./log-files/log.txt"
