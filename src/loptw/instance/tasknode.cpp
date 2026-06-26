@@ -12,7 +12,7 @@
 
 namespace loptw::instance {
 
-TaskNode::TaskNode(Index tasknode_id, double width, double length)
-    : tasknode_id_{tasknode_id}, width_{width}, length_{length} {}
+TaskNode::TaskNode(Index tasknode_id, double width, double length) :
+  tasknode_id_{tasknode_id}, width_{width}, length_{length} {}
 
 } // namespace loptw::instance

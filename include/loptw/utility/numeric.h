@@ -24,25 +24,27 @@ public:
   static bool Equal(double left, double right, double toleration = 1e-9);
 
   /// @brief whether $val$ is slightly less equal to $right^-$
-  static bool EqualSlightLess(double val, double right,
+  static bool EqualSlightLess(double val,
+                              double right,
                               double toleration = 1e-9);
 
   /// @brief whether $val$ is slightly greater equal to $right^-$
-  static bool EqualSlightGreater(double val, double left,
+  static bool EqualSlightGreater(double val,
+                                 double left,
                                  double toleration = 1e-9);
 
   /// @brief whether $val$ is integral
   static bool IsIntegral(double val, double toleration = 1e-9);
 
   /// @brief Find the index of the most fractional variable
-  static int IndexOfMostFractional(const std::vector<double> &vals,
-                                   const std::vector<int> &int_vars);
+  static int IndexOfMostFractional(const std::vector<double>& vals,
+                                   const std::vector<int>& int_vars);
 
   static std::vector<int> Ones(int n);
 
   static std::vector<double> Zeros(int n);
 
-  static std::vector<double> Abs(const std::vector<double> &vals);
+  static std::vector<double> Abs(const std::vector<double>& vals);
 };
 
 } // namespace loptw::utility

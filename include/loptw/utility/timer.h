@@ -19,7 +19,7 @@ namespace loptw::utility {
 /// @brief second-based timer
 class Timer {
 public:
-  static double Ellapsed(const std::function<void()> &runnable);
+  static double Ellapsed(const std::function<void()>& runnable);
 
   Timer() = default;
   ~Timer() = default;

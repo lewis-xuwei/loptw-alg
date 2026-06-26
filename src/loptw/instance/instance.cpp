@@ -23,15 +23,17 @@ void Instance::set_instance_path(const std::string path) {
   instance_path_ = path;
 }
 
-const std::string &Instance::instance_path() const { return instance_path_; }
+const std::string& Instance::instance_path() const {
+  return instance_path_;
+}
 
-const Instance::Pool<Building> &Instance::buildings() const {
+const Instance::Pool<Building>& Instance::buildings() const {
   return buildings_;
 }
-const Instance::Pool<TaskNode> &Instance::tasknodes() const {
+const Instance::Pool<TaskNode>& Instance::tasknodes() const {
   return tasknodes_;
 }
-const Instance::Pool<Workflow> &Instance::workflows() const {
+const Instance::Pool<Workflow>& Instance::workflows() const {
   return workflows_;
 }
 
@@ -51,9 +53,12 @@ std::shared_ptr<Instance> Instance::FromPath(const std::string path) {
   instance->set_instance_path(path);
 
   for (auto building_json : instance_json["buildings"]) {
-    auto building = std::make_shared<Building>(
-        building_json["id"], building_json["x"], building_json["y"],
-        building_json["w"], building_json["h"], building_json["c"]);
+    auto building = std::make_shared<Building>(building_json["id"],
+                                               building_json["x"],
+                                               building_json["y"],
+                                               building_json["w"],
+                                               building_json["h"],
+                                               building_json["c"]);
 
     if (nullptr != building)
       instance->AddBuilding(building);
@@ -61,8 +66,9 @@ std::shared_ptr<Instance> Instance::FromPath(const std::string path) {
   spdlog::info("Add {} buildings", instance->GetNumBuildings());
 
   for (auto tasknode_json : instance_json["task_nodes"]) {
-    auto tasknode = std::make_shared<TaskNode>(
-        tasknode_json["id"], tasknode_json["w"], tasknode_json["h"]);
+    auto tasknode = std::make_shared<TaskNode>(tasknode_json["id"],
+                                               tasknode_json["w"],
+                                               tasknode_json["h"]);
 
     if (nullptr != tasknode)
       instance->AddTaskNode(tasknode);
@@ -81,11 +87,17 @@ std::shared_ptr<Instance> Instance::FromPath(const std::string path) {
   return instance;
 }
 
-size_t Instance::GetNumBuildings() const { return buildings_.size(); }
+size_t Instance::GetNumBuildings() const {
+  return buildings_.size();
+}
 
-size_t Instance::GetNumTaskNodes() const { return tasknodes_.size(); }
+size_t Instance::GetNumTaskNodes() const {
+  return tasknodes_.size();
+}
 
-size_t Instance::GetNumWorkflows() const { return workflows_.size(); }
+size_t Instance::GetNumWorkflows() const {
+  return workflows_.size();
+}
 
 bool Instance::Validate() const {
   // 1. any building do not overlap with each other
@@ -158,10 +170,10 @@ bool Instance::RemoveTaskNode(const Index tasknode_id) {
 
 bool Instance::AddWorkflow(const std::shared_ptr<Workflow> workflow,
                            bool overwrite) {
-
   auto iter = workflows_.find({workflow->source_, workflow->target_});
   if ((iter != workflows_.end()) && overwrite == false) {
-    spdlog::debug("workflow [{}->{}] existed", workflow->source_,
+    spdlog::debug("workflow [{}->{}] existed",
+                  workflow->source_,
                   workflow->target_);
     return true;
   }

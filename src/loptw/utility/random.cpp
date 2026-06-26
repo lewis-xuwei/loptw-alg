@@ -38,7 +38,7 @@ int Random::Index(unsigned size) {
 }
 
 /// @brief shuffle a vector of integers
-void Random::Shuffle(std::vector<int> &vec) {
+void Random::Shuffle(std::vector<int>& vec) {
   std::shuffle(vec.begin(), vec.end(), Random::gen_);
 }
 

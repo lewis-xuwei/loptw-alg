@@ -21,8 +21,9 @@ ThreadPool::ThreadPool(size_t threads) : stop(false) {
 
         {
           std::unique_lock<std::mutex> lock(this->queue_mutex);
-          this->condition.wait(
-              lock, [this] { return this->stop || !this->tasks.empty(); });
+          this->condition.wait(lock, [this] {
+            return this->stop || !this->tasks.empty();
+          });
           if (this->stop && this->tasks.empty())
             return;
           task = std::move(this->tasks.front());
@@ -41,7 +42,7 @@ ThreadPool::~ThreadPool() {
     stop = true;
   }
   condition.notify_all();
-  for (std::thread &worker : workers)
+  for (std::thread& worker : workers)
     worker.join();
 }
 

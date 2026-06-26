@@ -17,8 +17,8 @@ namespace loptw::utility {
 
 class Exception {
 public:
-  explicit Exception(const std::string &message);
-  explicit Exception(const std::string &message, int code);
+  explicit Exception(const std::string& message);
+  explicit Exception(const std::string& message, int code);
   virtual ~Exception();
 
   virtual int GetCode() const;

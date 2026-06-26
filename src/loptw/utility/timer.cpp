@@ -12,7 +12,7 @@
 
 namespace loptw::utility {
 
-double Timer::Ellapsed(const std::function<void()> &runnable) {
+double Timer::Ellapsed(const std::function<void()>& runnable) {
   auto start = std::chrono::steady_clock::now();
 
   runnable();

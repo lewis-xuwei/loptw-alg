@@ -21,22 +21,22 @@ namespace loptw::utility {
 
 class LoggerImpl : public Logger {
 public:
-  LoggerImpl(const std::string &module_name, LogLevel level = LogLevel::Info);
+  LoggerImpl(const std::string& module_name, LogLevel level = LogLevel::Info);
   ~LoggerImpl();
 
   static std::shared_ptr<spdlog::logger> GetSpdLogInstance();
 
 public:
   virtual void SetLevel(LogLevel level) override;
-  virtual void Trace(const std::string &msg, int line) override;
-  virtual void Debug(const std::string &msg, int line) override;
-  virtual void Info(const std::string &msg, int line) override;
-  virtual void Warn(const std::string &msg, int line) override;
-  virtual void Error(const std::string &msg, int line) override;
-  virtual void Critical(const std::string &msg, int line) override;
+  virtual void Trace(const std::string& msg, int line) override;
+  virtual void Debug(const std::string& msg, int line) override;
+  virtual void Info(const std::string& msg, int line) override;
+  virtual void Warn(const std::string& msg, int line) override;
+  virtual void Error(const std::string& msg, int line) override;
+  virtual void Critical(const std::string& msg, int line) override;
 
 private:
-  void Log(LogLevel level, const std::string &msg, int line);
+  void Log(LogLevel level, const std::string& msg, int line);
 
 private:
   std::string module_name_;

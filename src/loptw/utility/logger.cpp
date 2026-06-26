@@ -14,11 +14,13 @@
 
 namespace loptw::utility {
 
-std::shared_ptr<Logger> Logger::GetLogger(const std::string &name) {
+std::shared_ptr<Logger> Logger::GetLogger(const std::string& name) {
   return std::make_shared<LoggerImpl>(name);
 }
 
-Loggable::Loggable() { LogConstruct(); }
+Loggable::Loggable() {
+  LogConstruct();
+}
 
 Loggable::~Loggable() {}
 

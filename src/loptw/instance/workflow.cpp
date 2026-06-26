@@ -12,7 +12,7 @@
 
 namespace loptw::instance {
 
-Workflow::Workflow(Index source, Index target, double quantity)
-    : source_{source}, target_{target}, quantity_{quantity} {}
+Workflow::Workflow(Index source, Index target, double quantity) :
+  source_{source}, target_{target}, quantity_{quantity} {}
 
 } // namespace loptw::instance

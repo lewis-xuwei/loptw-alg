@@ -11,14 +11,18 @@
 
 namespace loptw::utility {
 
-Exception::Exception(const std::string &message) : message_{message} {}
+Exception::Exception(const std::string& message) : message_{message} {}
 
-Exception::Exception(const std::string &message, int code)
-    : message_{message}, code_{code} {}
+Exception::Exception(const std::string& message, int code) :
+  message_{message}, code_{code} {}
 
-int Exception::GetCode() const { return code_; }
+int Exception::GetCode() const {
+  return code_;
+}
 
-std::string Exception::GetMessage() const { return message_; }
+std::string Exception::GetMessage() const {
+  return message_;
+}
 
 Exception::~Exception() {}
 

@@ -21,13 +21,17 @@ public:
 
 public:
   Building() = delete;
-  Building(Index building_id, double left_coord, double bottom_coord,
-           double width, double length, double rent_cost);
+  Building(Index building_id,
+           double left_coord,
+           double bottom_coord,
+           double width,
+           double length,
+           double rent_cost);
 
   /// @brief Check whether overlap with other
   /// @param other
   /// @return true if this overlap with other, otherwise false
-  bool OverlapWith(const Building &other) const;
+  bool OverlapWith(const Building& other) const;
 
 public:
   Index building_id_;

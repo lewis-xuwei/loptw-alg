@@ -13,15 +13,16 @@
 
 #define DEFER_1(x, y) x##y
 #define DEFER_2(x, y) DEFER_1(x, y)
-#define DEFER_3(x) DEFER_2(x, __COUNTER__)
-#define defer(code) auto DEFER_3(_defer_) = loptw::utility::Defer(code)
+#define DEFER_3(x)    DEFER_2(x, __COUNTER__)
+#define defer(code)   auto DEFER_3(_defer_) = loptw::utility::Defer(code)
 
 #include <functional>
 #include <memory>
 
 namespace loptw::utility {
 
-template <typename T> class Action {
+template <typename T>
+class Action {
 protected:
   Action(std::function<T> action) : action_(action) {}
 
@@ -31,10 +32,12 @@ protected:
 
 class DeferedAction {
 public:
-  DeferedAction(std::function<void()> defer_action)
-      : defer_action_(defer_action) {}
+  DeferedAction(std::function<void()> defer_action) :
+    defer_action_(defer_action) {}
 
-  ~DeferedAction() { defer_action_(); }
+  ~DeferedAction() {
+    defer_action_();
+  }
 
 private:
   std::function<void()> defer_action_;

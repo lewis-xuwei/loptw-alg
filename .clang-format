@@ -1,7 +1,7 @@
-AccessModifierOffset: -4
+AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
 AlignConsecutiveMacros: true
 AlignEscapedNewlinesLeft: Right
 AlignOperands: true
@@ -19,16 +19,16 @@ BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterClass: true
-  AfterControlStatement: true
-  AfterEnum: true
-  AfterFunction: true
-  AfterNamespace: true
-  AfterStruct: true
-  AfterUnion: true
-  AfterExternBlock: true
-  BeforeCatch: true
-  BeforeElse: true
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
@@ -39,15 +39,15 @@ BreakStringLiterals: false
 ColumnLimit: 80
 CompactNamespaces: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 FixNamespaceComments: true
 IncludeBlocks: Preserve
 IndentCaseLabels: false
 IndentPPDirectives: AfterHash
-IndentWidth: 4
+IndentWidth: 2
 IndentWrappedFunctionNames: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 Language: Cpp

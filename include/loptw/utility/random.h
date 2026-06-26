@@ -35,7 +35,7 @@ public:
   static int Index(unsigned size);
 
   /// @brief shuffle a vector of integers
-  static void Shuffle(std::vector<int> &vec);
+  static void Shuffle(std::vector<int>& vec);
 };
 
 } // namespace loptw::utility

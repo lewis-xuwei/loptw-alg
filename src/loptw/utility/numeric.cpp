@@ -34,8 +34,8 @@ bool Numeric::IsIntegral(double val, double toleration) {
   return IsZero(val - std::round(val), toleration);
 }
 
-int Numeric::IndexOfMostFractional(const std::vector<double> &vals,
-                                   const std::vector<int> &int_vars) {
+int Numeric::IndexOfMostFractional(const std::vector<double>& vals,
+                                   const std::vector<int>& int_vars) {
   int index = -1;
   double max_dis_to_half = std::numeric_limits<double>::infinity();
   for (int i : int_vars) {
@@ -50,13 +50,15 @@ int Numeric::IndexOfMostFractional(const std::vector<double> &vals,
   return index;
 }
 
-std::vector<int> Numeric::Ones(int n) { return std::vector<int>(n, 1); }
+std::vector<int> Numeric::Ones(int n) {
+  return std::vector<int>(n, 1);
+}
 
 std::vector<double> Numeric::Zeros(int n) {
   return std::vector<double>(n, 0.0);
 }
 
-std::vector<double> Numeric::Abs(const std::vector<double> &vals) {
+std::vector<double> Numeric::Abs(const std::vector<double>& vals) {
   std::vector<double> result(vals.size());
   for (size_t i = 0; i < vals.size(); ++i) {
     result[i] = std::abs(vals[i]);

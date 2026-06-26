@@ -18,23 +18,30 @@
 
 namespace loptw ::utility {
 
-template <typename T> class Lazy;
+template <typename T>
+class Lazy;
 
 // State of lazy object
-template <typename T> class LazyState {
+template <typename T>
+class LazyState {
 public:
-  virtual std::shared_ptr<T> &Get(Lazy<T> *lazy) = 0;
+  virtual std::shared_ptr<T>& Get(Lazy<T>* lazy) = 0;
   virtual bool IsInitialized() = 0;
 };
 
 // State of initialized object
-template <typename T> class LazyInitialized : public LazyState<T> {
+template <typename T>
+class LazyInitialized : public LazyState<T> {
 public:
   LazyInitialized(std::shared_ptr<T> val = nullptr) : val_(val) {}
 
-  std::shared_ptr<T> &Get(Lazy<T> *lazy) override { return val_; }
+  std::shared_ptr<T>& Get(Lazy<T>* lazy) override {
+    return val_;
+  }
 
-  bool IsInitialized() override { return true; }
+  bool IsInitialized() override {
+    return true;
+  }
 
 private:
   std::shared_ptr<T> val_;
@@ -44,10 +51,10 @@ private:
 template <typename T>
 class LazyAwait : public LazyState<T>, protected Action<std::shared_ptr<T>()> {
 public:
-  LazyAwait(std::function<std::shared_ptr<T>()> action = nullptr)
-      : Action<std::shared_ptr<T>()>(action) {}
+  LazyAwait(std::function<std::shared_ptr<T>()> action = nullptr) :
+    Action<std::shared_ptr<T>()>(action) {}
 
-  std::shared_ptr<T> &Get(Lazy<T> *lazy) override {
+  std::shared_ptr<T>& Get(Lazy<T>* lazy) override {
     if (!initialized_) {
       mtx_->lock();
 
@@ -61,14 +68,17 @@ public:
     return lazy->Get();
   }
 
-  bool IsInitialized() override { return initialized_; }
+  bool IsInitialized() override {
+    return initialized_;
+  }
 
 private:
   bool initialized_ = false;
   std::shared_ptr<std::mutex> mtx_ = std::make_shared<std::mutex>();
 };
 
-template <typename T> class Lazy {
+template <typename T>
+class Lazy {
 public:
   Lazy(std::function<std::shared_ptr<T>()> action = nullptr) {
     if (action == nullptr) {
@@ -82,14 +92,18 @@ public:
     state = std::make_shared<LazyInitialized<T>>(val);
   }
 
-  std::shared_ptr<T> &Get() {
+  std::shared_ptr<T>& Get() {
     std::shared_ptr<LazyState<T>> tmp = state;
     return tmp->Get(this);
   }
 
-  std::shared_ptr<T> operator->() { return this->Get(); }
+  std::shared_ptr<T> operator->() {
+    return this->Get();
+  }
 
-  bool IsInitialized() const { return state->IsInitialized(); }
+  bool IsInitialized() const {
+    return state->IsInitialized();
+  }
 
 private:
   std::shared_ptr<LazyState<T>> state;

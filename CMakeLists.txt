@@ -16,9 +16,7 @@ if(CXX)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Release")
-endif()
+set(CMAKE_BUILD_TYPE "Debug")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
@@ -99,7 +97,6 @@ target_link_libraries(${PROJECT_NAME}-main PRIVATE soplex)
 target_link_libraries(${PROJECT_NAME}-main PRIVATE spdlog::spdlog)
 target_link_libraries(${PROJECT_NAME}-main PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME}-main PRIVATE fmt::fmt)
-
 target_include_directories(${PROJECT_NAME}-main PRIVATE ${GUROBI_INCLUDE_DIRS})
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   target_link_libraries(${PROJECT_NAME}-main

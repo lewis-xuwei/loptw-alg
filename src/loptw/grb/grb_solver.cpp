@@ -20,7 +20,7 @@ GRBSolver::GRBSolver(std::shared_ptr<instance::Instance> inst) : inst{inst} {
   F = inst->GetNumWorkflows();
 
   env = std::make_shared<GRBEnv>(true);
-  env->set("LogFile", "loptw.log");
+  env->set("LogFile", fmt::format("{}.log", inst->instance_path()));
   env->start();
 
   model = std::make_shared<GRBModel>(*env);
@@ -36,14 +36,20 @@ void GRBSolver::AddVariables() {
   // x[N]
   x = std::vector<GRBVar>(N);
   for (int i = 0; i < N; ++i) {
-    x[i] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS,
+    x[i] = model->addVar(0,
+                         GRB_INFINITY,
+                         0,
+                         GRB_CONTINUOUS,
                          fmt::format("x_{}", i));
   }
 
   // y[N]
   y = std::vector<GRBVar>(N);
   for (int i = 0; i < N; ++i) {
-    y[i] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS,
+    y[i] = model->addVar(0,
+                         GRB_INFINITY,
+                         0,
+                         GRB_CONTINUOUS,
                          fmt::format("y_{}", i));
   }
 
@@ -57,8 +63,8 @@ void GRBSolver::AddVariables() {
   z = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(T));
   for (int i = 0; i < N; ++i) {
     for (int t = 0; t < T; ++t) {
-      z[i][t] =
-          model->addVar(0, 1, 0, GRB_BINARY, fmt::format("z_{}_{}", i, t));
+      z[i][t]
+        = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("z_{}_{}", i, t));
     }
   }
 
@@ -66,8 +72,8 @@ void GRBSolver::AddVariables() {
   l = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      l[i][j] =
-          model->addVar(0, 1, 0, GRB_BINARY, fmt::format("l_{}_{}", i, j));
+      l[i][j]
+        = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("l_{}_{}", i, j));
     }
   }
 
@@ -75,8 +81,8 @@ void GRBSolver::AddVariables() {
   m = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      m[i][j] =
-          model->addVar(0, 1, 0, GRB_BINARY, fmt::format("m_{}_{}", i, j));
+      m[i][j]
+        = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("m_{}_{}", i, j));
     }
   }
 
@@ -84,7 +90,10 @@ void GRBSolver::AddVariables() {
   d = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      d[i][j] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS,
+      d[i][j] = model->addVar(0,
+                              GRB_INFINITY,
+                              0,
+                              GRB_CONTINUOUS,
                               fmt::format("d_{}_{}", i, j));
     }
   }
@@ -92,7 +101,10 @@ void GRBSolver::AddVariables() {
   a = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      a[i][j] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS,
+      a[i][j] = model->addVar(0,
+                              GRB_INFINITY,
+                              0,
+                              GRB_CONTINUOUS,
                               fmt::format("a_{}_{}", i, j));
     }
   }
@@ -101,7 +113,10 @@ void GRBSolver::AddVariables() {
   b = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      b[i][j] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS,
+      b[i][j] = model->addVar(0,
+                              GRB_INFINITY,
+                              0,
+                              GRB_CONTINUOUS,
                               fmt::format("b_{}_{}", i, j));
     }
   }
@@ -127,7 +142,6 @@ void GRBSolver::AddObjective() {
 }
 
 void GRBSolver::AddConstraints() {
-
   for (int i = 0; i < N; ++i) {
     GRBLinExpr expr;
     for (int t = 0; t < T; ++t) {
@@ -160,9 +174,9 @@ void GRBSolver::AddConstraints() {
   for (int t = 0; t < T; ++t) {
     for (int j = 0; j < N; ++j) {
       for (int i = 0; i < j; ++i) {
-        model->addConstr(l[i][j] + l[j][i] + m[i][j] + m[j][i] + (1 - z[i][t]) +
-                                 (1 - z[j][t]) >=
-                             1,
+        model->addConstr(l[i][j] + l[j][i] + m[i][j] + m[j][i] + (1 - z[i][t])
+                             + (1 - z[j][t])
+                           >= 1,
                          fmt::format("tasknode_relations_{}_{}_{}", i, j, t));
       }
     }
@@ -175,14 +189,14 @@ void GRBSolver::AddConstraints() {
       double w_j = inst->tasknodes().at(j)->width_;
       double h_j = inst->tasknodes().at(j)->length_;
 
-      model->addConstr(x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i] <=
-                           x[j] - 0.5 * w_j * (1 - r[j]) - 0.5 * h_j * r[j] +
-                               1000000 * (1 - l[i][j]),
+      model->addConstr(x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i]
+                         <= x[j] - 0.5 * w_j * (1 - r[j]) - 0.5 * h_j * r[j]
+                              + 1000000 * (1 - l[i][j]),
                        fmt::format("task-task-right_{}_left_{}", i, j));
 
-      model->addConstr(y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i] <=
-                           y[j] - 0.5 * h_j * (1 - r[j]) - 0.5 * w_j * r[j] +
-                               1000000 * (1 - m[i][j]),
+      model->addConstr(y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i]
+                         <= y[j] - 0.5 * h_j * (1 - r[j]) - 0.5 * w_j * r[j]
+                              + 1000000 * (1 - m[i][j]),
                        fmt::format("task-task-top_{}_bottom_{}", i, j));
     }
   }
@@ -196,20 +210,20 @@ void GRBSolver::AddConstraints() {
       double b_t = inst->buildings().at(t)->bottom_coord_;
       double l_t = inst->buildings().at(t)->left_coord_;
 
-      model->addConstr(x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i] <=
-                           l_t + W_t + 1000000 * (1 - z[i][t]),
+      model->addConstr(x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i]
+                         <= l_t + W_t + 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-right_{}_right_{}", i, t));
 
-      model->addConstr(x[i] - 0.5 * w_i * (1 - r[i]) - 0.5 * h_i * r[i] >=
-                           l_t - 1000000 * (1 - z[i][t]),
+      model->addConstr(x[i] - 0.5 * w_i * (1 - r[i]) - 0.5 * h_i * r[i]
+                         >= l_t - 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-left_{}_left_{}", i, t));
 
-      model->addConstr(y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i] <=
-                           b_t + H_t + 1000000 * (1 - z[i][t]),
+      model->addConstr(y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i]
+                         <= b_t + H_t + 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-bottom_{}_bottom_{}", i, t));
 
-      model->addConstr(y[i] - 0.5 * h_i * (1 - r[i]) - 0.5 * w_i * r[i] >=
-                           b_t - 1000000 * (1 - z[i][t]),
+      model->addConstr(y[i] - 0.5 * h_i * (1 - r[i]) - 0.5 * w_i * r[i]
+                         >= b_t - 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-top_{}_top_{}", i, t));
     }
   }

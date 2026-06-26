@@ -18,18 +18,21 @@ namespace loptw::utility {
 
 class Type {
 public:
-  static const std::string Demangling(const char *name);
+  static const std::string Demangling(const char* name);
 
 public:
-  template <class T> static const std::type_info TypeInfo() {
+  template <class T>
+  static const std::type_info TypeInfo() {
     return typeid(T);
   }
 
-  template <class T> static const std::string NameOf() {
+  template <class T>
+  static const std::string NameOf() {
     return Demangling(typeid(T).name());
   }
 
-  template <class T> static const std::string NameOf(T *p) {
+  template <class T>
+  static const std::string NameOf(T* p) {
     return Demangling(typeid(*p).name());
   }
 };

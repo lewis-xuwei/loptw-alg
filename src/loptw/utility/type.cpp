@@ -16,13 +16,13 @@
 
 namespace loptw::utility {
 
-const std::string Type::Demangling(const char *name) {
+const std::string Type::Demangling(const char* name) {
 #ifndef _MSC_VER
   int status = -4;
 
-  char *res = abi::__cxa_demangle(name, NULL, NULL, &status);
+  char* res = abi::__cxa_demangle(name, NULL, NULL, &status);
 
-  const char *const demangled_name = (status == 0) ? res : name;
+  const char* const demangled_name = (status == 0) ? res : name;
 
   std::string ret_val(demangled_name);
 

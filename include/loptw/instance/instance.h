@@ -33,10 +33,10 @@ public:
   /// @brief Set the path of json data
   /// @param path
   void set_instance_path(const std::string path);
-  const std::string &instance_path() const;
-  const Pool<Building> &buildings() const;
-  const Pool<TaskNode> &tasknodes() const;
-  const Pool<Workflow> &workflows() const;
+  const std::string& instance_path() const;
+  const Pool<Building>& buildings() const;
+  const Pool<TaskNode>& tasknodes() const;
+  const Pool<Workflow>& workflows() const;
 
   /// @brief Read instance from path
   /// @param path

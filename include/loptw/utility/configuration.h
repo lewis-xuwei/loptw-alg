@@ -19,8 +19,8 @@ namespace loptw::utility {
 class Configuration {
 public:
   static std::shared_ptr<Configuration> GetInstance();
-  virtual std::string GetValue(const std::string &name,
-                               const std::string &default_value = "") const = 0;
+  virtual std::string GetValue(const std::string& name,
+                               const std::string& default_value = "") const = 0;
 };
 
 } // namespace loptw::utility

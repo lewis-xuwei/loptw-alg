@@ -15,19 +15,21 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
-
 #include "logger_impl.h"
 
 #include <loptw/utility/configuration.h>
 
 namespace loptw::utility {
 
-static LogLevel FromString(const std::string &level) {
-  static std::map<std::string, LogLevel> __level_string_map{
-      {"Trace", LogLevel::Trace}, {"Debug", LogLevel::Debug},
-      {"Info", LogLevel::Info},   {"Warn", LogLevel::Warn},
-      {"Error", LogLevel::Error}, {"Critical", LogLevel::Critical},
-      {"Off", LogLevel::Off}};
+static LogLevel FromString(const std::string& level) {
+  static std::map<std::string, LogLevel>
+    __level_string_map{{"Trace", LogLevel::Trace},
+                       {"Debug", LogLevel::Debug},
+                       {"Info", LogLevel::Info},
+                       {"Warn", LogLevel::Warn},
+                       {"Error", LogLevel::Error},
+                       {"Critical", LogLevel::Critical},
+                       {"Off", LogLevel::Off}};
 
   if (__level_string_map.find(level) != __level_string_map.cend()) {
     return __level_string_map[level];
@@ -48,8 +50,8 @@ std::shared_ptr<spdlog::logger> LoggerImpl::GetSpdLogInstance() {
   console_sink->set_level(spdlog::level::info);
   console_sink->set_pattern(log_pattern);
 
-  auto file_sink =
-      std::make_shared<spdlog::sinks::basic_file_sink_mt>(appender, false);
+  auto file_sink
+    = std::make_shared<spdlog::sinks::basic_file_sink_mt>(appender, false);
   file_sink->set_level(spdlog::level::info);
   file_sink->set_pattern(log_pattern);
 
@@ -61,8 +63,8 @@ std::shared_ptr<spdlog::logger> LoggerImpl::GetSpdLogInstance() {
   return logger_ptr;
 }
 
-LoggerImpl::LoggerImpl(const std::string &module_name, LogLevel level)
-    : module_name_{module_name}, level_{level} {
+LoggerImpl::LoggerImpl(const std::string& module_name, LogLevel level) :
+  module_name_{module_name}, level_{level} {
   spd_logger_ = GetSpdLogInstance();
 }
 
@@ -72,30 +74,33 @@ void LoggerImpl::SetLevel(LogLevel level) {
   spd_logger_->set_level(static_cast<spdlog::level::level_enum>(level));
 }
 
-void LoggerImpl::Critical(const std::string &msg, int line) {
+void LoggerImpl::Critical(const std::string& msg, int line) {
   Log(LogLevel::Critical, msg, line);
 }
 
-void LoggerImpl::Error(const std::string &msg, int line) {
+void LoggerImpl::Error(const std::string& msg, int line) {
   Log(LogLevel::Error, msg, line);
 }
 
-void LoggerImpl::Warn(const std::string &msg, int line) {
+void LoggerImpl::Warn(const std::string& msg, int line) {
   Log(LogLevel::Warn, msg, line);
 }
-void LoggerImpl::Info(const std::string &msg, int line) {
+void LoggerImpl::Info(const std::string& msg, int line) {
   Log(LogLevel::Info, msg, line);
 }
-void LoggerImpl::Debug(const std::string &msg, int line) {
+void LoggerImpl::Debug(const std::string& msg, int line) {
   Log(LogLevel::Debug, msg, line);
 }
-void LoggerImpl::Trace(const std::string &msg, int line) {
+void LoggerImpl::Trace(const std::string& msg, int line) {
   Log(LogLevel::Trace, msg, line);
 }
 
-void LoggerImpl::Log(LogLevel level, const std::string &msg, int line) {
+void LoggerImpl::Log(LogLevel level, const std::string& msg, int line) {
   spd_logger_->log(static_cast<spdlog::level::level_enum>(level),
-                   "[{}:{}] - {}", module_name_, line, msg);
+                   "[{}:{}] - {}",
+                   module_name_,
+                   line,
+                   msg);
 }
 
 } // namespace loptw::utility
