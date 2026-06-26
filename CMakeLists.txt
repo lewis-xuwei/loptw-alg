@@ -68,8 +68,7 @@ if(MSVC)
 endif()
 
 file(GLOB_RECURSE HEADERS "./include/*.h*")
-file(GLOB_RECURSE SOURCES "./src/loptw/*.cpp" "./src/loptw/*.hpp"
-     "${VERSIONINFO_RC}")
+file(GLOB_RECURSE SOURCES "./src/*.cpp" "./src/*.hpp" "${VERSIONINFO_RC}")
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 if(MSVC)

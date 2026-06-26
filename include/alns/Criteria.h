@@ -2,10 +2,10 @@
 #ifndef __ALNS_INCLUDE_ALGORITHM_CRITERIA_H__
 #define __ALNS_INCLUDE_ALGORITHM_CRITERIA_H__
 
-#include <loptw/alns/RandomState.h>
-#include <loptw/alns/headers.h>
+#include <alns/RandomState.h>
+#include <alns/headers.h>
 
-namespace loptw::alns::Criterion {
+namespace alns::Criterion {
 
 enum UPDATE_METHOD { linear = 0, exponential = 1 };
 
@@ -31,6 +31,6 @@ public:
   static double update(double current, double step, UPDATE_METHOD method);
 };
 
-} // namespace loptw::alns::Criterion
+} // namespace alns::Criterion
 
 #endif // __ALNS_INCLUDE_ALGORITHM_CRITERIA_H__

@@ -2,10 +2,10 @@
 #ifndef __ALNS_INCLUDE_ALGORITHM_OPERATOR_HPP__
 #define __ALNS_INCLUDE_ALGORITHM_OPERATOR_HPP__
 
-#include <loptw/alns/RandomState.h>
-#include <loptw/alns/headers.h>
+#include <alns/RandomState.h>
+#include <alns/headers.h>
 
-namespace loptw::alns {
+namespace alns {
 
 template <class STATE_CLS>
 class Operator {
@@ -75,6 +75,6 @@ public:
   };
 };
 
-} // namespace loptw::alns
+} // namespace alns
 
 #endif // __ALNS_INCLUDE_ALGORITHM_OPERATOR_HPP__

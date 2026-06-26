@@ -2,9 +2,9 @@
 #ifndef ALNS_RANDOMSTATE_H
 #define ALNS_RANDOMSTATE_H
 
-#include <loptw/alns/headers.h>
+#include <alns/headers.h>
 
-namespace loptw::alns {
+namespace alns {
 
 class RandomState {
 private:
@@ -25,6 +25,6 @@ public:
                                               double ratio_ub);
 };
 
-} // namespace loptw::alns
+} // namespace alns
 
 #endif // ALNS_RANDOMSTATE_H

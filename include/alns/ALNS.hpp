@@ -1,13 +1,13 @@
 #ifndef __ALNS_INCLUDE_ALGORITHM_ALNS_HPP__
 #define __ALNS_INCLUDE_ALGORITHM_ALNS_HPP__
 
-#include <loptw/alns/Criteria.h>
-#include <loptw/alns/Operator.hpp>
-#include <loptw/alns/RandomState.h>
-#include <loptw/alns/Statistics.h>
-#include <loptw/alns/headers.h>
+#include <alns/Criteria.h>
+#include <alns/Operator.hpp>
+#include <alns/RandomState.h>
+#include <alns/Statistics.h>
+#include <alns/headers.h>
 
-namespace loptw::alns {
+namespace alns {
 
 enum ITERATE_STATE {
   IS_BEST = 0,
@@ -172,6 +172,6 @@ public:
   };
 };
 
-} // namespace loptw::alns
+} // namespace alns
 
 #endif // __ALNS_INCLUDE_ALGORITHM_ALNS_HPP__

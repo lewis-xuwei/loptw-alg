@@ -2,9 +2,9 @@
 #ifndef ALNS_STATISTICS_H
 #define ALNS_STATISTICS_H
 
-#include <loptw/alns/headers.h>
+#include <alns/headers.h>
 
-namespace loptw::alns {
+namespace alns {
 
 class Statistics {
 private:
@@ -22,6 +22,6 @@ public:
   void saveOptUsage(const std::string& save_path);
 };
 
-} // namespace loptw::alns
+} // namespace alns
 
 #endif // ALNS_STATISTICS_H

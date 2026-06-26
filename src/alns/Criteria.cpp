@@ -1,7 +1,7 @@
 
-#include <loptw/alns/Criteria.h>
+#include <alns/Criteria.h>
 
-namespace loptw::alns {
+namespace alns {
 
 Criterion::SimulatedAnnealing::SimulatedAnnealing(double start_temp,
                                                   double end_temp,
@@ -38,4 +38,4 @@ double Criterion::SimulatedAnnealing::update(double current,
   return 0.;
 }
 
-} // namespace loptw::alns
+} // namespace alns
