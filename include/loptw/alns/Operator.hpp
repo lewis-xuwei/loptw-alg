@@ -2,8 +2,8 @@
 #ifndef __ALNS_INCLUDE_ALGORITHM_OPERATOR_HPP__
 #define __ALNS_INCLUDE_ALGORITHM_OPERATOR_HPP__
 
-#include "RandomState.h"
-#include "headers.h"
+#include <loptw/alns/RandomState.h>
+#include <loptw/alns/headers.h>
 
 template <class STATE_CLS>
 class Operator {

@@ -1,11 +1,11 @@
 #ifndef __ALNS_INCLUDE_ALGORITHM_ALNS_HPP__
 #define __ALNS_INCLUDE_ALGORITHM_ALNS_HPP__
 
-#include "Criteria.h"
-#include "Operator.hpp"
-#include "RandomState.h"
-#include "Statistics.h"
-#include "headers.h"
+#include <loptw/alns/Criteria.h>
+#include <loptw/alns/Operator.hpp>
+#include <loptw/alns/RandomState.h>
+#include <loptw/alns/Statistics.h>
+#include <loptw/alns/headers.h>
 
 enum ITERATE_STATE {
   IS_BEST = 0,

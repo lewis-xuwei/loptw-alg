@@ -2,7 +2,7 @@
 #ifndef ALNS_STATISTICS_H
 #define ALNS_STATISTICS_H
 
-#include "headers.h"
+#include <loptw/alns/headers.h>
 
 class Statistics {
 private:
@@ -12,12 +12,12 @@ private:
 
 public:
   void collectObjective(double current, double candidate, double best);
-  void initOptCounts(const std::string &optString);
-  void addOptCounts(const std::string &optString, int weight_idx);
+  void initOptCounts(const std::string& optString);
+  void addOptCounts(const std::string& optString, int weight_idx);
   void updateOptUsageMap();
   void printOptUsage();
-  void saveObjective(const std::string &save_path);
-  void saveOptUsage(const std::string &save_path);
+  void saveObjective(const std::string& save_path);
+  void saveOptUsage(const std::string& save_path);
 };
 
 #endif // ALNS_STATISTICS_H
