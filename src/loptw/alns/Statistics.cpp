@@ -2,6 +2,8 @@
 
 #include <loptw/alns/Statistics.h>
 
+namespace loptw::alns {
+
 void Statistics::initOptCounts(const std::string& optString) {
   _optUsageMap[optString] = std::array<int, 4>{0, 0, 0, 0};
 }
@@ -63,3 +65,5 @@ void Statistics::saveOptUsage(const std::string& save_path) {
 void Statistics::updateOptUsageMap() {
   _optIterationUsageMap.push_back(_optUsageMap);
 }
+
+} // namespace loptw::alns

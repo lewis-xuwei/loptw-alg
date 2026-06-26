@@ -1,6 +1,7 @@
 
-
 #include <loptw/alns/RandomState.h>
+
+namespace loptw::alns {
 
 double RandomState::uniform(double min, double max) {
   std::uniform_real_distribution<double> dist(min, max);
@@ -47,3 +48,5 @@ std::vector<unsigned> RandomState::sample_idxes_in_range(
   }
   return idxes;
 };
+
+} // namespace loptw::alns

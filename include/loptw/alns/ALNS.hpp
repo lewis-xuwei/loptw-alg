@@ -7,6 +7,8 @@
 #include <loptw/alns/Statistics.h>
 #include <loptw/alns/headers.h>
 
+namespace loptw::alns {
+
 enum ITERATE_STATE {
   IS_BEST = 0,
   IS_BETTER = 1,
@@ -169,5 +171,7 @@ public:
     return 0;
   };
 };
+
+} // namespace loptw::alns
 
 #endif // __ALNS_INCLUDE_ALGORITHM_ALNS_HPP__

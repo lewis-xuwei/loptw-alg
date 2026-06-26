@@ -5,7 +5,7 @@
 #include <loptw/alns/RandomState.h>
 #include <loptw/alns/headers.h>
 
-namespace Criterion {
+namespace loptw::alns::Criterion {
 
 enum UPDATE_METHOD { linear = 0, exponential = 1 };
 
@@ -31,6 +31,6 @@ public:
   static double update(double current, double step, UPDATE_METHOD method);
 };
 
-} // namespace Criterion
+} // namespace loptw::alns::Criterion
 
 #endif // __ALNS_INCLUDE_ALGORITHM_CRITERIA_H__

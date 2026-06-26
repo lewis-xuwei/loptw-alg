@@ -5,6 +5,8 @@
 #include <loptw/alns/RandomState.h>
 #include <loptw/alns/headers.h>
 
+namespace loptw::alns {
+
 template <class STATE_CLS>
 class Operator {
 private:
@@ -72,5 +74,7 @@ public:
     return opt_ptr_map[opt_name_map[idx]];
   };
 };
+
+} // namespace loptw::alns
 
 #endif // __ALNS_INCLUDE_ALGORITHM_OPERATOR_HPP__

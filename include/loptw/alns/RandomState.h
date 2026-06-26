@@ -4,6 +4,8 @@
 
 #include <loptw/alns/headers.h>
 
+namespace loptw::alns {
+
 class RandomState {
 private:
   int _seed = 0;
@@ -22,4 +24,7 @@ public:
                                               double ratio_lb,
                                               double ratio_ub);
 };
+
+} // namespace loptw::alns
+
 #endif // ALNS_RANDOMSTATE_H

@@ -4,6 +4,8 @@
 
 #include <loptw/alns/headers.h>
 
+namespace loptw::alns {
+
 class Statistics {
 private:
   std::vector<std::array<double, 3>> _objectives;
@@ -19,5 +21,7 @@ public:
   void saveObjective(const std::string& save_path);
   void saveOptUsage(const std::string& save_path);
 };
+
+} // namespace loptw::alns
 
 #endif // ALNS_STATISTICS_H
