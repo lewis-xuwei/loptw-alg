@@ -4,7 +4,7 @@
 #include <alns/RandomState.h>
 #include <tsp/DataStructure.h>
 
-using namespace alns;
+namespace tsp {
 
 // 定义TSP解结构
 class State {
@@ -20,10 +20,11 @@ public:
                     double degree_of_destruction);
 
   // Removal
-  static State RandomRemoval(const State& state, RandomState& rnd_state);
+  static State RandomRemoval(const State& state, alns::RandomState& rnd_state);
 
   // Insertion
-  static State GreedyInsertion(const State& state, RandomState& rnd_state);
+  static State GreedyInsertion(const State& state,
+                               alns::RandomState& rnd_state);
 
 private:
   template <class Tp>
@@ -47,5 +48,7 @@ private:
   std::vector<int> nodes_list_;
   std::vector<int> uninserted_nodes_list_;
 };
+
+} // namespace tsp
 
 #endif // __ALNS_INCLUDE_TSP_STATE_H__

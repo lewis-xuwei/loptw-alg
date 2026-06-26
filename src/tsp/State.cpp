@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <chrono>
 
+namespace tsp {
+
 double State::Objective() const {
   size_t num_of_nodes = nodes_list_.size();
 
@@ -61,7 +63,7 @@ void State::PrintResult() const {
   }
 }
 
-State State::RandomRemoval(const State& state, RandomState& rnd_state) {
+State State::RandomRemoval(const State& state, alns::RandomState& rnd_state) {
   size_t num_points = state.data_structure_->GetNumOfPoints();
   size_t num_removed = state.degree_of_destruction_ * num_points;
 
@@ -81,7 +83,7 @@ State State::RandomRemoval(const State& state, RandomState& rnd_state) {
   return destroyed;
 }
 
-State State::GreedyInsertion(const State& state, RandomState& rnd_state) {
+State State::GreedyInsertion(const State& state, alns::RandomState& rnd_state) {
   State repaired(state);
   repaired.PrintResult();
 
@@ -112,3 +114,5 @@ State State::GreedyInsertion(const State& state, RandomState& rnd_state) {
 
   return repaired;
 }
+
+} // namespace tsp

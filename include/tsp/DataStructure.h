@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+namespace tsp {
+
 // 定义 TSP 问题结构
 class DataStructure {
   friend std::ostream& operator<<(std::ostream& out,
@@ -33,5 +35,7 @@ private:
 
 std::ostream& operator<<(std::ostream& out,
                          const DataStructure& data_structure);
+
+} // namespace tsp
 
 #endif // __ALNS_INCLUDE_TSP_DATASTRUCTURE_H__

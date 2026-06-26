@@ -25,13 +25,18 @@
 #include <tsp/State.h>
 
 // 导出为动态库或者直接在main函数跑
-State run_alns_on_state(DataStructure* data_structure,
-                        double degree_of_destruction = 0.25,
-                        int iterations = 100,
-                        double initial_temperature = 300.,
-                        double operator_decay_ratio = 0.9,
-                        const std::string& objective_path = "objective.csv",
-                        const std::string& opt_usage_path = "opt_usage.csv") {
+tsp::State run_alns_on_state(tsp::DataStructure* data_structure,
+                             double degree_of_destruction = 0.25,
+                             int iterations = 100,
+                             double initial_temperature = 300.,
+                             double operator_decay_ratio = 0.9,
+                             const std::string& objective_path
+                             = "objective.csv",
+                             const std::string& opt_usage_path
+                             = "opt_usage.csv") {
+  using namespace tsp;
+  using namespace alns;
+
   // 构造State模型的初始解
   State init_state = State::Init(data_structure, degree_of_destruction);
   // 随机种子控制
@@ -45,10 +50,10 @@ State run_alns_on_state(DataStructure* data_structure,
   alns.add_repair_operator(&greedy_insertion, "I-Greedy");
   // 实例化 指数速率 退火跳接受机制
   Criterion::SimulatedAnnealing
-    criterion{initial_temperature,
+    criterion(initial_temperature,
               0,
               0.999975,
-              Criterion::UPDATE_METHOD::exponential};
+              Criterion::UPDATE_METHOD::exponential);
   // 迭代计算
   auto best = alns.iterate(init_state,
                            {33., 9., 13., 1.}, // 4种邻域解状态对应的分数增量
@@ -62,7 +67,7 @@ State run_alns_on_state(DataStructure* data_structure,
 }
 
 int main(int argc, char const* argv[]) {
-  DataStructure data("../../data/data.tsp");
+  tsp::DataStructure data("../../data/data.tsp");
   data.Init();
 
   auto state = run_alns_on_state(&data);

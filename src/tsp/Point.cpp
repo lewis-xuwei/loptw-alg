@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+namespace tsp {
+
 std::ostream& operator<<(std::ostream& out, const Point& point) {
   out << "Point<" << point.id_ << ">: {x = " << point.x_ << ", y = " << point.y_
       << "}" << std::endl;
@@ -16,3 +18,5 @@ double Point::GetDistance(const Point& point) {
   return std::sqrt((point.x_ - x_) * (point.x_ - x_)
                    + (point.y_ - y_) * (point.y_ - y_));
 }
+
+} // namespace tsp

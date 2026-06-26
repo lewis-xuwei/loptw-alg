@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+namespace tsp {
+
 class Point {
   friend std::ostream& operator<<(std::ostream& out, const Point& point);
 
@@ -19,5 +21,7 @@ public:
 };
 
 std::ostream& operator<<(std::ostream& out, const Point& point);
+
+} // namespace tsp
 
 #endif // __ALNS_INCLUDE_TSP_POINT_H__

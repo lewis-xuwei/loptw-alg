@@ -3,6 +3,8 @@
 
 #include <tsp/DataStructure.h>
 
+namespace tsp {
+
 DataStructure::DataStructure(const std::string& instance_file) :
   instance_file_(instance_file) {}
 
@@ -74,3 +76,5 @@ void DataStructure::LoadInstance() {
     points_.push_back({id, x, y});
   }
 }
+
+} // namespace tsp
