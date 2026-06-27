@@ -17,7 +17,8 @@ public:
 
   // Initialization
   static State Init(DataStructure* data_structure,
-                    double degree_of_destruction);
+                    double degree_of_destruction,
+                    alns::RandomState& rand_state);
 
   // Removal
   static State RandomRemoval(const State& state, alns::RandomState& rnd_state);

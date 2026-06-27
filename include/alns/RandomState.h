@@ -8,11 +8,12 @@ namespace alns {
 
 class RandomState {
 private:
-  int _seed = 0;
+  int _seed = -1;
   std::random_device _rd;
+  std::mt19937 _mt;
 
 public:
-  explicit RandomState(int init_seed);
+  explicit RandomState(int init_seed = -1);
 
   double uniform(double min, double max);
 
@@ -23,6 +24,10 @@ public:
   std::vector<unsigned> sample_idxes_in_range(const unsigned& size,
                                               double ratio_lb,
                                               double ratio_ub);
+  template <class T>
+  void shuffle(std::vector<T>& vec) {
+    std::shuffle(vec.begin(), vec.end(), _mt);
+  }
 };
 
 } // namespace alns

@@ -37,10 +37,10 @@ tsp::State run_alns_on_state(tsp::DataStructure* data_structure,
   using namespace tsp;
   using namespace alns;
 
-  // 构造State模型的初始解
-  State init_state = State::Init(data_structure, degree_of_destruction);
   // 随机种子控制
   RandomState rs{1};
+  // 构造State模型的初始解
+  State init_state = State::Init(data_structure, degree_of_destruction, rs);
   // 实例化 适配于State的 退火跳版本的 alns
   ALNS<State, Criterion::SimulatedAnnealing> alns{&rs};
   // 添加State的几种邻域搜索算子

@@ -26,7 +26,9 @@ double State::Objective() const {
   return obj;
 }
 
-State State::Init(DataStructure* data_structure, double degree_of_destruction) {
+State State::Init(DataStructure* data_structure,
+                  double degree_of_destruction,
+                  alns::RandomState& rand_state) {
   State state;
   state.degree_of_destruction_ = degree_of_destruction;
   state.data_structure_ = data_structure;
@@ -39,10 +41,7 @@ State State::Init(DataStructure* data_structure, double degree_of_destruction) {
     node_list.push_back(i);
   }
 
-  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-  std::shuffle(node_list.begin(),
-               node_list.end(),
-               std::default_random_engine(seed));
+  rand_state.shuffle(node_list);
   state.nodes_list_ = node_list;
   return std::move(state);
 }
