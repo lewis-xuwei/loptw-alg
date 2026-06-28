@@ -21,15 +21,13 @@ namespace loptw::utility {
 
 class ConfigurationImpl : public Configuration {
 public:
-  ConfigurationImpl(const std::string& config_file) :
-    config_file_{config_file}, config_{nullptr} {
+  ConfigurationImpl(const std::string& config_file) : config_file_{config_file}, config_{nullptr} {
     config_ = cpptoml::parse_file(config_file_);
   }
 
   ~ConfigurationImpl() {}
 
-  std::string GetValue(const std::string& name,
-                       const std::string& default_value) const {
+  std::string GetValue(const std::string& name, const std::string& default_value) const {
     if (nullptr != config_) {
       auto value = config_->get_qualified_as<std::string>(name);
       if (value) {

@@ -22,14 +22,13 @@
 namespace loptw::utility {
 
 static LogLevel FromString(const std::string& level) {
-  static std::map<std::string, LogLevel>
-    __level_string_map{{"Trace", LogLevel::Trace},
-                       {"Debug", LogLevel::Debug},
-                       {"Info", LogLevel::Info},
-                       {"Warn", LogLevel::Warn},
-                       {"Error", LogLevel::Error},
-                       {"Critical", LogLevel::Critical},
-                       {"Off", LogLevel::Off}};
+  static std::map<std::string, LogLevel> __level_string_map{{"Trace", LogLevel::Trace},
+                                                            {"Debug", LogLevel::Debug},
+                                                            {"Info", LogLevel::Info},
+                                                            {"Warn", LogLevel::Warn},
+                                                            {"Error", LogLevel::Error},
+                                                            {"Critical", LogLevel::Critical},
+                                                            {"Off", LogLevel::Off}};
 
   if (__level_string_map.find(level) != __level_string_map.cend()) {
     return __level_string_map[level];
@@ -50,8 +49,7 @@ std::shared_ptr<spdlog::logger> LoggerImpl::GetSpdLogInstance() {
   console_sink->set_level(spdlog::level::info);
   console_sink->set_pattern(log_pattern);
 
-  auto file_sink
-    = std::make_shared<spdlog::sinks::basic_file_sink_mt>(appender, false);
+  auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(appender, false);
   file_sink->set_level(spdlog::level::info);
   file_sink->set_pattern(log_pattern);
 

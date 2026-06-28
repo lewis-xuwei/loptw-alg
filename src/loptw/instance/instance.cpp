@@ -66,9 +66,8 @@ std::shared_ptr<Instance> Instance::FromPath(const std::string path) {
   spdlog::info("Add {} buildings", instance->GetNumBuildings());
 
   for (auto tasknode_json : instance_json["task_nodes"]) {
-    auto tasknode = std::make_shared<TaskNode>(tasknode_json["id"],
-                                               tasknode_json["w"],
-                                               tasknode_json["h"]);
+    auto tasknode
+      = std::make_shared<TaskNode>(tasknode_json["id"], tasknode_json["w"], tasknode_json["h"]);
 
     if (nullptr != tasknode)
       instance->AddTaskNode(tasknode);
@@ -121,8 +120,7 @@ bool Instance::Validate() const {
   return true;
 }
 
-bool Instance::AddBuilding(const std::shared_ptr<Building> building,
-                           bool overwrite) {
+bool Instance::AddBuilding(const std::shared_ptr<Building> building, bool overwrite) {
   auto iter = buildings_.find(building->building_id_);
   if (iter != buildings_.end() && overwrite == false) {
     spdlog::debug("building {} existed", building->building_id_);
@@ -145,8 +143,7 @@ bool Instance::RemoveBuilding(const Index building_id) {
   return true;
 }
 
-bool Instance::AddTaskNode(const std::shared_ptr<TaskNode> tasknode,
-                           bool overwrite) {
+bool Instance::AddTaskNode(const std::shared_ptr<TaskNode> tasknode, bool overwrite) {
   auto iter = tasknodes_.find(tasknode->tasknode_id_);
   if (iter != tasknodes_.end() && overwrite == false) {
     spdlog::debug("tasknode {} existed", tasknode->tasknode_id_);
@@ -168,13 +165,10 @@ bool Instance::RemoveTaskNode(const Index tasknode_id) {
   return true;
 }
 
-bool Instance::AddWorkflow(const std::shared_ptr<Workflow> workflow,
-                           bool overwrite) {
+bool Instance::AddWorkflow(const std::shared_ptr<Workflow> workflow, bool overwrite) {
   auto iter = workflows_.find({workflow->source_, workflow->target_});
   if ((iter != workflows_.end()) && overwrite == false) {
-    spdlog::debug("workflow [{}->{}] existed",
-                  workflow->source_,
-                  workflow->target_);
+    spdlog::debug("workflow [{}->{}] existed", workflow->source_, workflow->target_);
     return true;
   }
 

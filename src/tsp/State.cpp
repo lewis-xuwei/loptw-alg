@@ -14,8 +14,7 @@ double State::Objective() const {
   if (node_set.size() != num_of_nodes)
     return std::numeric_limits<double>::infinity();
 
-  double obj = data_structure_->GetDistance(nodes_list_[0],
-                                            nodes_list_[num_of_nodes - 1]);
+  double obj = data_structure_->GetDistance(nodes_list_[0], nodes_list_[num_of_nodes - 1]);
 
   for (size_t i = 0; i < num_of_nodes - 1; i++) {
     int from = nodes_list_[i];

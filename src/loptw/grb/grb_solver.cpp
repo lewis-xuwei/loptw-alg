@@ -36,21 +36,13 @@ void GRBSolver::AddVariables() {
   // x[N]
   x = std::vector<GRBVar>(N);
   for (int i = 0; i < N; ++i) {
-    x[i] = model->addVar(0,
-                         GRB_INFINITY,
-                         0,
-                         GRB_CONTINUOUS,
-                         fmt::format("x_{}", i));
+    x[i] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, fmt::format("x_{}", i));
   }
 
   // y[N]
   y = std::vector<GRBVar>(N);
   for (int i = 0; i < N; ++i) {
-    y[i] = model->addVar(0,
-                         GRB_INFINITY,
-                         0,
-                         GRB_CONTINUOUS,
-                         fmt::format("y_{}", i));
+    y[i] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, fmt::format("y_{}", i));
   }
 
   // r[N]
@@ -63,8 +55,7 @@ void GRBSolver::AddVariables() {
   z = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(T));
   for (int i = 0; i < N; ++i) {
     for (int t = 0; t < T; ++t) {
-      z[i][t]
-        = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("z_{}_{}", i, t));
+      z[i][t] = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("z_{}_{}", i, t));
     }
   }
 
@@ -72,8 +63,7 @@ void GRBSolver::AddVariables() {
   l = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      l[i][j]
-        = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("l_{}_{}", i, j));
+      l[i][j] = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("l_{}_{}", i, j));
     }
   }
 
@@ -81,8 +71,7 @@ void GRBSolver::AddVariables() {
   m = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      m[i][j]
-        = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("m_{}_{}", i, j));
+      m[i][j] = model->addVar(0, 1, 0, GRB_BINARY, fmt::format("m_{}_{}", i, j));
     }
   }
 
@@ -90,22 +79,14 @@ void GRBSolver::AddVariables() {
   d = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      d[i][j] = model->addVar(0,
-                              GRB_INFINITY,
-                              0,
-                              GRB_CONTINUOUS,
-                              fmt::format("d_{}_{}", i, j));
+      d[i][j] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, fmt::format("d_{}_{}", i, j));
     }
   }
   // alpha[N][N]
   a = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      a[i][j] = model->addVar(0,
-                              GRB_INFINITY,
-                              0,
-                              GRB_CONTINUOUS,
-                              fmt::format("a_{}_{}", i, j));
+      a[i][j] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, fmt::format("a_{}_{}", i, j));
     }
   }
 
@@ -113,11 +94,7 @@ void GRBSolver::AddVariables() {
   b = std::vector<std::vector<GRBVar>>(N, std::vector<GRBVar>(N));
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      b[i][j] = model->addVar(0,
-                              GRB_INFINITY,
-                              0,
-                              GRB_CONTINUOUS,
-                              fmt::format("b_{}_{}", i, j));
+      b[i][j] = model->addVar(0, GRB_INFINITY, 0, GRB_CONTINUOUS, fmt::format("b_{}_{}", i, j));
     }
   }
 }
@@ -158,25 +135,18 @@ void GRBSolver::AddConstraints() {
 
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
-      model->addConstr(d[i][j] == a[i][j] + b[i][j],
-                       fmt::format("distance_{}_{}", i, j));
-      model->addConstr(a[i][j] >= x[i] - x[j],
-                       fmt::format("distance_{}_{}-1", i, j));
-      model->addConstr(a[i][j] >= x[j] - x[i],
-                       fmt::format("distance_{}_{}-2", i, j));
-      model->addConstr(b[i][j] >= y[i] - y[j],
-                       fmt::format("distance_{}_{}-3", i, j));
-      model->addConstr(b[i][j] >= y[j] - y[i],
-                       fmt::format("distance_{}_{}-4", i, j));
+      model->addConstr(d[i][j] == a[i][j] + b[i][j], fmt::format("distance_{}_{}", i, j));
+      model->addConstr(a[i][j] >= x[i] - x[j], fmt::format("distance_{}_{}-1", i, j));
+      model->addConstr(a[i][j] >= x[j] - x[i], fmt::format("distance_{}_{}-2", i, j));
+      model->addConstr(b[i][j] >= y[i] - y[j], fmt::format("distance_{}_{}-3", i, j));
+      model->addConstr(b[i][j] >= y[j] - y[i], fmt::format("distance_{}_{}-4", i, j));
     }
   }
 
   for (int t = 0; t < T; ++t) {
     for (int j = 0; j < N; ++j) {
       for (int i = 0; i < j; ++i) {
-        model->addConstr(l[i][j] + l[j][i] + m[i][j] + m[j][i] + (1 - z[i][t])
-                             + (1 - z[j][t])
-                           >= 1,
+        model->addConstr(l[i][j] + l[j][i] + m[i][j] + m[j][i] + (1 - z[i][t]) + (1 - z[j][t]) >= 1,
                          fmt::format("tasknode_relations_{}_{}_{}", i, j, t));
       }
     }
