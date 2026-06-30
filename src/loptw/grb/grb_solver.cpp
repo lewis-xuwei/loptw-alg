@@ -135,11 +135,24 @@ void GRBSolver::AddConstraints() {
 
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
+      double w_i = inst->tasknodes().at(i)->width_;
+      double h_i = inst->tasknodes().at(i)->length_;
+      double w_j = inst->tasknodes().at(j)->width_;
+      double h_j = inst->tasknodes().at(j)->length_;
+
       model->addConstr(d[i][j] == a[i][j] + b[i][j], fmt::format("distance_{}_{}", i, j));
-      model->addConstr(a[i][j] >= x[i] - x[j], fmt::format("distance_{}_{}-1", i, j));
-      model->addConstr(a[i][j] >= x[j] - x[i], fmt::format("distance_{}_{}-2", i, j));
-      model->addConstr(b[i][j] >= y[i] - y[j], fmt::format("distance_{}_{}-3", i, j));
-      model->addConstr(b[i][j] >= y[j] - y[i], fmt::format("distance_{}_{}-4", i, j));
+      model->addConstr(a[i][j] >= (x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i])
+                                    - (x[j] + 0.5 * w_j * (1 - r[j]) + 0.5 * h_j * r[j]),
+                       fmt::format("distance_{}_{}-1", i, j));
+      model->addConstr(a[i][j] >= (x[j] + 0.5 * w_j * (1 - r[j]) + 0.5 * h_j * r[j])
+                                    - (x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i]),
+                       fmt::format("distance_{}_{}-2", i, j));
+      model->addConstr(b[i][j] >= (y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i])
+                                    - (y[j] + 0.5 * h_j * (1 - r[j]) + 0.5 * w_j * r[j]),
+                       fmt::format("distance_{}_{}-3", i, j));
+      model->addConstr(b[i][j] >= (y[j] + 0.5 * h_j * (1 - r[j]) + 0.5 * w_j * r[j])
+                                    - (y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i]),
+                       fmt::format("distance_{}_{}-4", i, j));
     }
   }
 
@@ -159,14 +172,10 @@ void GRBSolver::AddConstraints() {
       double w_j = inst->tasknodes().at(j)->width_;
       double h_j = inst->tasknodes().at(j)->length_;
 
-      model->addConstr(x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i]
-                         <= x[j] - 0.5 * w_j * (1 - r[j]) - 0.5 * h_j * r[j]
-                              + 1000000 * (1 - l[i][j]),
+      model->addConstr(x[i] + w_i * (1 - r[i]) + h_i * r[i] <= x[j] + 1000000 * (1 - l[i][j]),
                        fmt::format("task-task-right_{}_left_{}", i, j));
 
-      model->addConstr(y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i]
-                         <= y[j] - 0.5 * h_j * (1 - r[j]) - 0.5 * w_j * r[j]
-                              + 1000000 * (1 - m[i][j]),
+      model->addConstr(y[i] + h_i * (1 - r[i]) + w_i * r[i] <= y[j] + 1000000 * (1 - m[i][j]),
                        fmt::format("task-task-top_{}_bottom_{}", i, j));
     }
   }
@@ -180,20 +189,16 @@ void GRBSolver::AddConstraints() {
       double b_t = inst->buildings().at(t)->bottom_coord_;
       double l_t = inst->buildings().at(t)->left_coord_;
 
-      model->addConstr(x[i] + 0.5 * w_i * (1 - r[i]) + 0.5 * h_i * r[i]
-                         <= l_t + W_t + 1000000 * (1 - z[i][t]),
+      model->addConstr(x[i] + w_i * (1 - r[i]) + h_i * r[i] <= l_t + W_t + 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-right_{}_right_{}", i, t));
 
-      model->addConstr(x[i] - 0.5 * w_i * (1 - r[i]) - 0.5 * h_i * r[i]
-                         >= l_t - 1000000 * (1 - z[i][t]),
+      model->addConstr(x[i] >= l_t - 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-left_{}_left_{}", i, t));
 
-      model->addConstr(y[i] + 0.5 * h_i * (1 - r[i]) + 0.5 * w_i * r[i]
-                         <= b_t + H_t + 1000000 * (1 - z[i][t]),
+      model->addConstr(y[i] + h_i * (1 - r[i]) + w_i * r[i] <= b_t + H_t + 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-bottom_{}_bottom_{}", i, t));
 
-      model->addConstr(y[i] - 0.5 * h_i * (1 - r[i]) - 0.5 * w_i * r[i]
-                         >= b_t - 1000000 * (1 - z[i][t]),
+      model->addConstr(y[i] >= b_t - 1000000 * (1 - z[i][t]),
                        fmt::format("task-building-top_{}_top_{}", i, t));
     }
   }
