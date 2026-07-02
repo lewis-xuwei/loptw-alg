@@ -12,10 +12,10 @@
 
 namespace loptw::alg {
 
-std::vector<std::vector<double>> Skyline::GetSkyline(std::vector<std::vector<double>>& buildings) {
-  std::sort(buildings.begin(),
-            buildings.end(),
-            [](const std::vector<double>& a, const std::vector<double>& b) { return a[0] < b[0]; });
+std::vector<std::vector<double>> SkylineMerger::Merge(std::vector<Skyline>& buildings) {
+  std::sort(buildings.begin(), buildings.end(), [](const Skyline& a, const Skyline& b) {
+    return a.left < b.left;
+  });
   auto cmp = [](const std::pair<double, double>& a, const std::pair<double, double>& b) -> bool {
     return a.second < b.second;
   };
@@ -25,16 +25,16 @@ std::vector<std::vector<double>> Skyline::GetSkyline(std::vector<std::vector<dou
 
   std::vector<double> boundaries;
   for (auto& building : buildings) {
-    boundaries.emplace_back(building[0]);
-    boundaries.emplace_back(building[1]);
+    boundaries.emplace_back(building.left);
+    boundaries.emplace_back(building.right);
   }
   std::sort(boundaries.begin(), boundaries.end());
 
   std::vector<std::vector<double>> ret;
   int n = buildings.size(), idx = 0;
   for (auto& boundary : boundaries) {
-    while (idx < n && buildings[idx][0] <= boundary) {
-      que.emplace(buildings[idx][1], buildings[idx][2]);
+    while (idx < n && buildings[idx].left <= boundary) {
+      que.emplace(buildings[idx].right, buildings[idx].height);
       idx++;
     }
     while (!que.empty() && que.top().first <= boundary) {

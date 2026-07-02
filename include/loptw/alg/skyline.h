@@ -17,9 +17,15 @@
 
 namespace loptw::alg {
 
-class Skyline {
+struct Skyline {
+  double left;
+  double right;
+  double height;
+};
+
+class SkylineMerger {
 public:
-  static std::vector<std::vector<double>> GetSkyline(std::vector<std::vector<double>>& buildings);
+  static std::vector<std::vector<double>> Merge(std::vector<Skyline>& buildings);
 };
 
 } // namespace loptw::alg

@@ -19,12 +19,12 @@
 TEST_CASE("Test Class `loptw::alg::Skyline'") {
   using namespace loptw::alg;
   SUBCASE("skyline-1") {
-    std::vector<std::vector<double>> buildings = {{5.0, 12.0, 12.0},
-                                                  {3.0, 7.0, 15.0},
-                                                  {15.0, 20.0, 10.0},
-                                                  {2.0, 9.0, 10.0},
-                                                  {19.0, 24.0, 8.0}};
-    auto skyline = Skyline::GetSkyline(buildings);
+    std::vector<Skyline> buildings = {{5.0, 12.0, 12.0},
+                                      {3.0, 7.0, 15.0},
+                                      {15.0, 20.0, 10.0},
+                                      {2.0, 9.0, 10.0},
+                                      {19.0, 24.0, 8.0}};
+    auto skyline = SkylineMerger::Merge(buildings);
     std::vector<std::vector<double>> expected = {{2.0, 10.0},
                                                  {3.0, 15.0},
                                                  {7.0, 12.0},
@@ -39,9 +39,8 @@ TEST_CASE("Test Class `loptw::alg::Skyline'") {
   }
 
   SUBCASE("skyline-1") {
-    std::vector<std::vector<double>> buildings
-      = {{0, 1, 3.0}, {1, 2, 1}, {1, 2, 3.01}, {2, 3, 2}, {2, 3, 0}};
-    auto skyline = Skyline::GetSkyline(buildings);
+    std::vector<Skyline> buildings = {{0, 1, 3.0}, {1, 2, 1}, {1, 2, 3.01}, {2, 3, 2}, {2, 3, 0}};
+    auto skyline = SkylineMerger::Merge(buildings);
     std::vector<std::vector<double>> expected = {{0.0, 3.0}, {1.0, 3.01}, {2.0, 2.0}, {3.0, 0.0}};
     REQUIRE(skyline.size() == 4);
     for (const auto& point : skyline) {
