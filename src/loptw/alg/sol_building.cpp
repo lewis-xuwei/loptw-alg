@@ -38,7 +38,7 @@ bool SolBuilding::ServeTaskNode(int task_node) const {
 }
 
 int SolBuilding::FindTaskNode(int task_node) const {
-  auto pos = std::find(task_list_.cbegin(), task_list_.cend(), task_node);
+  auto pos = std::find(task_list_.cbegin(), task_list_.cend(), Node{task_node});
   if (pos != task_list_.cend()) {
     return std::distance(task_list_.cbegin(), pos);
   }

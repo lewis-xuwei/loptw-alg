@@ -24,6 +24,10 @@ struct Node {
 
   // whether is rotated
   bool rotated = false;
+
+  bool operator==(const Node& other) const {
+    return id == other.id;
+  }
 };
 
 } // namespace loptw::alg
