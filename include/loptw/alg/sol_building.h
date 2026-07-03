@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <loptw/alg/node.h>
+#include <loptw/alg/placement.h>
 #include <loptw/instance/instance.h>
 
 namespace loptw::alg {
@@ -27,14 +27,14 @@ public:
 
 public:
   int Size() const;
-  bool ServeTaskNode(int task_node) const;
-  int FindTaskNode(int task_node) const;
+  bool ServeTaskNode(int taskid) const;
+  int FindTaskNode(int taskid) const;
   int TaskNode(int index) const;
   void UpdatePosition();
 
-  void InsertTaskNode(int task, int pos);
-  void RemoveTaskNode(int task);
-  void RemoveTaskNodeByPos(int pos);
+  void InsertTaskNode(int taskid, int index);
+  void RemoveTaskNode(int taskid);
+  void RemoveTaskNodeByIndex(int index);
 
 public:
   // place the task list by given order
@@ -47,7 +47,7 @@ private:
 
 private:
   int building_id_;
-  std::vector<Node> task_list_;
+  std::vector<Placement> task_list_;
   std::unordered_map<int, int> task_position_;
 
   std::vector<std::vector<int>> left_; // left[i][j] = 1 => i is in the left of j

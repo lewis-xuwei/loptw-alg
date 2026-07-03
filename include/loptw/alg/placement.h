@@ -1,6 +1,6 @@
 ///======================================================
 /// Project :   loptw-alg
-/// File    :   node.h
+/// File    :   placement.h
 ///------------------------------------------------------
 /// Time    :   2026/06/28 13:26:54
 /// Author  :   xuwei <lewis.xuwei@outlook.com>
@@ -10,9 +10,9 @@
 
 namespace loptw::alg {
 
-struct Node {
+struct Placement {
   // task node's id
-  int id;
+  int taskid;
 
   // left coordination when decoding
   // center coordination when solving LP
@@ -25,8 +25,8 @@ struct Node {
   // whether is rotated
   bool rotated = false;
 
-  bool operator==(const Node& other) const {
-    return id == other.id;
+  bool operator==(const Placement& other) const {
+    return taskid == other.taskid;
   }
 };
 

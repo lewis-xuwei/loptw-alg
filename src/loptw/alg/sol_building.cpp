@@ -17,10 +17,10 @@ SolBuilding::SolBuilding(std::shared_ptr<instance::Instance> inst,
                          const std::vector<int>& task_list) :
   building_id_{building_id} {
   for (int task : task_list) {
-    Node node;
-    node.id = task;
+    Placement placement;
+    placement.taskid = task;
 
-    task_list_.push_back(node);
+    task_list_.push_back(placement);
   }
 
   left_ = std::vector<std::vector<int>>(inst_->GetNumTaskNodes(),
@@ -38,7 +38,7 @@ bool SolBuilding::ServeTaskNode(int task_node) const {
 }
 
 int SolBuilding::FindTaskNode(int task_node) const {
-  auto pos = std::find(task_list_.cbegin(), task_list_.cend(), Node{task_node});
+  auto pos = std::find(task_list_.cbegin(), task_list_.cend(), Placement{task_node});
   if (pos != task_list_.cend()) {
     return std::distance(task_list_.cbegin(), pos);
   }
@@ -47,30 +47,30 @@ int SolBuilding::FindTaskNode(int task_node) const {
 }
 
 int SolBuilding::TaskNode(int index) const {
-  return task_list_.at(index).id;
+  return task_list_.at(index).taskid;
 }
 
 void SolBuilding::UpdatePosition() {
   for (int i = 0; i < task_list_.size(); i++) {
-    auto task_node = task_list_[i];
-    task_position_[task_node.id] = i;
+    auto placement = task_list_[i];
+    task_position_[placement.taskid] = i;
   }
 }
 
-void SolBuilding::InsertTaskNode(int task, int pos) {
-  Node node;
-  node.id = task;
+void SolBuilding::InsertTaskNode(int taskid, int index) {
+  Placement placement;
+  placement.taskid = taskid;
 
-  task_list_.insert(task_list_.begin() + pos, node);
+  task_list_.insert(task_list_.begin() + index, placement);
 }
 
-void SolBuilding::RemoveTaskNode(int task) {
-  int pos = FindTaskNode(task);
-  RemoveTaskNodeByPos(pos);
+void SolBuilding::RemoveTaskNode(int taskid) {
+  int index = FindTaskNode(taskid);
+  RemoveTaskNodeByIndex(index);
 }
 
-void SolBuilding::RemoveTaskNodeByPos(int pos) {
-  task_list_.erase(task_list_.begin() + pos);
+void SolBuilding::RemoveTaskNodeByIndex(int index) {
+  task_list_.erase(task_list_.begin() + index);
 }
 
 void SolBuilding::Decode() {}
