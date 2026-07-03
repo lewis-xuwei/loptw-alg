@@ -25,6 +25,9 @@ struct Placement {
   // whether is rotated
   bool rotated = false;
 
+  // whether is placed
+  bool placed = false;
+
   bool operator==(const Placement& other) const {
     return taskid == other.taskid;
   }

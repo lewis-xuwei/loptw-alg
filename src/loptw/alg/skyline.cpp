@@ -72,4 +72,26 @@ bool Skylines::Locate(const std::vector<Skyline>& skylines,
   return false;
 }
 
+void Skylines::MergeSkyline(std::vector<Skyline>& skylines, double x_start, double x_end) {
+  std::vector<std::vector<double>> ret = Merge(skylines);
+  std::vector<Skyline> merged_skylines;
+  for (int i = 0; i < ret.size() - 1; i++) {
+    double left = ret[i][0];
+    double height = ret[i][1];
+    double right = ret[i + 1][0];
+
+    merged_skylines.push_back(Skyline{left, right, height});
+  }
+
+  if (ret.front()[0] > x_start) {
+    merged_skylines.insert(merged_skylines.begin(), Skyline{x_start, ret.front()[0], 0});
+  }
+
+  if (ret.back()[0] < x_end) {
+    merged_skylines.push_back(Skyline{ret.back()[0], x_end, 0});
+  }
+
+  skylines = merged_skylines;
+}
+
 } // namespace loptw::alg

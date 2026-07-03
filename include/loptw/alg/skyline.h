@@ -33,6 +33,8 @@ public:
                      double height,
                      double H,
                      int index);
+
+  static void MergeSkyline(std::vector<Skyline>& skylines, double x_start, double x_end);
 };
 
 } // namespace loptw::alg
