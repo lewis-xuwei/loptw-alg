@@ -12,14 +12,20 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-  std::vector<loptw::alg::Skyline> buildings = {{5.0, 12.0, 12.0},
-                                                {3.0, 7.0, 15.0},
-                                                {15.0, 20.0, 10.0},
-                                                {2.0, 9.0, 10.0},
-                                                {19.0, 24.0, 8.0}};
-  auto skyline = loptw::alg::SkylineMerger::Merge(buildings);
+  std::vector<loptw::alg::Skyline> buildings = {{0, 3, 3}, {3, 5, 1}, {5, 8, 2}};
+  auto skyline = loptw::alg::Skylines::Merge(buildings);
 
   fmt::println("Merged Skyline: {}", skyline);
+
+  bool located;
+  located = loptw::alg::Skylines::Locate(buildings, 5.0, 2.0, 5, 0);
+  fmt::println("Location found: {}", located);
+
+  located = loptw::alg::Skylines::Locate(buildings, 5.0, 2.0, 5, 1);
+  fmt::println("Location found: {}", located);
+
+  located = loptw::alg::Skylines::Locate(buildings, 5.0, 2.0, 5, 2);
+  fmt::println("Location found: {}", located);
 
   return 0;
 }
