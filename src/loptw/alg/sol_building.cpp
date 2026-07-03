@@ -105,8 +105,8 @@ void SolBuilding::Decode() {
     // find the most left position with the lowest height
     for (int j = 0; j < skylines.size(); j++) {
       if (Skylines::Locate(skylines, w_i, h_i, H, j)) {
-        if (skylines[j].height < min_h) {
-          min_h = skylines[j].height;
+        if (skylines[j].height + h_i < min_h) {
+          min_h = skylines[j].height + h_i;
           s = j;
         }
       }
