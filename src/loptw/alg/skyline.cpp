@@ -12,8 +12,8 @@
 
 namespace loptw::alg {
 
-std::vector<std::vector<double>> SkylineMerger::Merge(std::vector<Skyline>& buildings) {
-  std::sort(buildings.begin(), buildings.end(), [](const Skyline& a, const Skyline& b) {
+std::vector<std::vector<double>> Skylines::Merge(std::vector<Skyline>& skylines) {
+  std::sort(skylines.begin(), skylines.end(), [](const Skyline& a, const Skyline& b) {
     return a.left < b.left;
   });
   auto cmp = [](const std::pair<double, double>& a, const std::pair<double, double>& b) -> bool {
@@ -24,17 +24,17 @@ std::vector<std::vector<double>> SkylineMerger::Merge(std::vector<Skyline>& buil
       que(cmp);
 
   std::vector<double> boundaries;
-  for (auto& building : buildings) {
-    boundaries.emplace_back(building.left);
-    boundaries.emplace_back(building.right);
+  for (auto& skyline : skylines) {
+    boundaries.emplace_back(skyline.left);
+    boundaries.emplace_back(skyline.right);
   }
   std::sort(boundaries.begin(), boundaries.end());
 
   std::vector<std::vector<double>> ret;
-  int n = buildings.size(), idx = 0;
+  int n = skylines.size(), idx = 0;
   for (auto& boundary : boundaries) {
-    while (idx < n && buildings[idx].left <= boundary) {
-      que.emplace(buildings[idx].right, buildings[idx].height);
+    while (idx < n && skylines[idx].left <= boundary) {
+      que.emplace(skylines[idx].right, skylines[idx].height);
       idx++;
     }
     while (!que.empty() && que.top().first <= boundary) {
@@ -47,6 +47,29 @@ std::vector<std::vector<double>> SkylineMerger::Merge(std::vector<Skyline>& buil
     }
   }
   return ret;
+}
+
+bool Skylines::Locate(const std::vector<Skyline>& skylines,
+                      double width,
+                      double height,
+                      double H,
+                      int index) {
+  if (H - skylines[index].height < height) {
+    return false;
+  }
+
+  for (int i = index; i < skylines.size() && width > 0; i++) {
+    double curr_width = skylines[i].right - skylines[i].left;
+    if (curr_width >= width) {
+      return true;
+    } else if (i < skylines.size() - 1 && skylines[i + 1].height <= skylines[index].height) {
+      width -= curr_width;
+    } else {
+      return false;
+    }
+  }
+
+  return false;
 }
 
 } // namespace loptw::alg

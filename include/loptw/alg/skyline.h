@@ -23,9 +23,16 @@ struct Skyline {
   double height;
 };
 
-class SkylineMerger {
+class Skylines {
 public:
-  static std::vector<std::vector<double>> Merge(std::vector<Skyline>& buildings);
+  static std::vector<std::vector<double>> Merge(std::vector<Skyline>& skylines);
+
+  // find the position to place a rectangle with given width and height
+  static bool Locate(const std::vector<Skyline>& skylines,
+                     double width,
+                     double height,
+                     double H,
+                     int index);
 };
 
 } // namespace loptw::alg
