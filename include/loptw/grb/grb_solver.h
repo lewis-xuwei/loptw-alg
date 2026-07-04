@@ -15,6 +15,8 @@
 
 #include <gurobi_c++.h>
 
+#include <loptw/grb/grb_callback.h>
+
 namespace loptw::grb {
 
 class GRBSolver {
@@ -25,6 +27,8 @@ public:
   void AddObjective();
   void AddConstraints();
   void Optimize();
+
+  void OptimizeWithCoverInequalityCallback();
 
 private:
   std::shared_ptr<instance::Instance> inst;
@@ -47,6 +51,9 @@ private:
   std::vector<std::vector<GRBVar>> d; // d[N][N]
   std::vector<std::vector<GRBVar>> a; // alpha[N][N]
   std::vector<std::vector<GRBVar>> b; // beta[N][N]
+
+private:
+  std::unique_ptr<CoverInequality> cover_inequality_callback;
 };
 
 } // namespace loptw::grb

@@ -24,6 +24,8 @@ GRBSolver::GRBSolver(std::shared_ptr<instance::Instance> inst) : inst{inst} {
   env->start();
 
   model = std::make_shared<GRBModel>(*env);
+
+  cover_inequality_callback = nullptr;
 }
 
 void GRBSolver::AddVariables() {
@@ -205,6 +207,13 @@ void GRBSolver::AddConstraints() {
 }
 
 void GRBSolver::Optimize() {
+  model->update();
+  model->optimize();
+}
+
+void GRBSolver::OptimizeWithCoverInequalityCallback() {
+  cover_inequality_callback = std::make_unique<CoverInequality>(inst, z);
+  model->setCallback(cover_inequality_callback.get(), GRB_CB_MIPSOL);
   model->update();
   model->optimize();
 }

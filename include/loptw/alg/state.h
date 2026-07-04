@@ -21,6 +21,8 @@ public:
   // Print the result
   void PrintResult() const;
 
+  static State InitialState(std::shared_ptr<instance::Instance> inst);
+
   static State RandomRemoval(const State& state, alns::RandomState& rnd_state);
   static State BestRepair(const State& state, alns::RandomState& rnd_state);
 
