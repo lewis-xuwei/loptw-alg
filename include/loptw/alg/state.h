@@ -9,6 +9,7 @@
 ///======================================================
 
 #include <alns/RandomState.h>
+#include <loptw/alg/parameter.h>
 #include <loptw/alg/sol_building.h>
 
 namespace loptw::alg {
@@ -21,7 +22,9 @@ public:
   // Print the result
   void PrintResult() const;
 
-  static State InitialState(std::shared_ptr<instance::Instance> inst);
+  // Initial solution for loptw
+  static State Initialization(std::shared_ptr<instance::Instance> inst,
+                              std::shared_ptr<Parameter> param);
 
   static State RandomRemoval(const State& state, alns::RandomState& rnd_state);
   static State BestRepair(const State& state, alns::RandomState& rnd_state);
