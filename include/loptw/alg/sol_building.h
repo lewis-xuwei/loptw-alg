@@ -23,7 +23,9 @@ class SolBuilding {
 public:
   SolBuilding(std::shared_ptr<instance::Instance> inst,
               int building_id,
-              const std::vector<int>& task_list);
+              const std::vector<int>& task_list,
+              std::shared_ptr<std::vector<std::vector<int>>> left_,
+              std::shared_ptr<std::vector<std::vector<int>>> top_);
 
 public:
   int Size() const;
@@ -50,8 +52,9 @@ private:
   std::vector<Placement> task_list_;
   std::unordered_map<int, int> task_position_;
 
-  std::vector<std::vector<int>> left_; // left[i][j] = 1 => i is in the left of j
-  std::vector<std::vector<int>> top_;  // top[i][j] = 1 => i is in the top of j
+  // the whole solution shares the same memory for left and top relation
+  std::shared_ptr<std::vector<std::vector<int>>> left_; // left[i][j] = 1 => i is in the left of j
+  std::shared_ptr<std::vector<std::vector<int>>> top_;  // top[i][j] = 1 => i is in the top of j
 };
 
 } // namespace loptw::alg

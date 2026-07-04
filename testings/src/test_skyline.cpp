@@ -38,7 +38,7 @@ TEST_CASE("Test Class `loptw::alg::Skyline'") {
     }
   }
 
-  SUBCASE("skyline-1") {
+  SUBCASE("skyline-2") {
     std::vector<Skyline> buildings = {{0, 1, 3.0}, {1, 2, 1}, {1, 2, 3.01}, {2, 3, 2}, {2, 3, 0}};
     auto skyline = Skylines::Merge(buildings);
     std::vector<std::vector<double>> expected = {{0.0, 3.0}, {1.0, 3.01}, {2.0, 2.0}, {3.0, 0.0}};
@@ -46,5 +46,16 @@ TEST_CASE("Test Class `loptw::alg::Skyline'") {
     for (const auto& point : skyline) {
       REQUIRE(std::find(expected.begin(), expected.end(), point) != expected.end());
     }
+  }
+
+  SUBCASE("skyline-3") {
+    std::vector<loptw::alg::Skyline> skylines = {{0, 3, 3}, {3, 5, 1}, {5, 10, 2}};
+    loptw::alg::Skylines::MergeSkyline(skylines, 0.0, 10);
+
+    REQUIRE(loptw::alg::Skylines::Locate(skylines, 5.0, 2.0, 5, 0) == true);
+    REQUIRE(loptw::alg::Skylines::Locate(skylines, 5.0, 2.01, 5, 0) == false);
+    REQUIRE(loptw::alg::Skylines::Locate(skylines, 5.0, 2.0, 5, 1) == false);
+    REQUIRE(loptw::alg::Skylines::Locate(skylines, 2.0, 4.0, 5, 1) == true);
+    REQUIRE(loptw::alg::Skylines::Locate(skylines, 5.0, 2.0, 5, 2) == true);
   }
 }
