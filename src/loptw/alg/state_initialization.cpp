@@ -1,6 +1,6 @@
 ///======================================================
 /// Project :   loptw-alg
-/// File    :   state.cpp
+/// File    :   state_initialization.cpp
 ///------------------------------------------------------
 /// Time    :   2026/07/04 18:52:05
 /// Author  :   xuwei <lewis.xuwei@outlook.com>
