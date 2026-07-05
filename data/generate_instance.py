@@ -191,7 +191,7 @@ class InstanceGenerator:
             print("--------------------------------------")
 
     def write_to_file(self, filename):
-        json_object = {"buildings": [], "task_nodes": [], "workflow": []}
+        json_object = {"transport_cost":1.0,"buildings": [], "task_nodes": [], "workflow": []}
 
         for _, building in self.buildings.items():
             json_object["buildings"].append(

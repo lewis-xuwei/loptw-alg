@@ -1,154 +1,135 @@
 {
+    "transport_cost": 1.0,
     "buildings": [
         {
             "id": 0,
             "x": 0.0,
-            "y": 97.0,
-            "w": 128,
-            "h": 187,
-            "c": 2501
+            "y": 31.0,
+            "w": 146,
+            "h": 191,
+            "c": 2708
         },
         {
             "id": 1,
-            "x": 305.0,
-            "y": 90.0,
-            "w": 192,
-            "h": 172,
-            "c": 3366
+            "x": 324.0,
+            "y": 77.0,
+            "w": 165,
+            "h": 142,
+            "c": 2356
         }
     ],
     "task_nodes": [
         {
             "id": 0,
-            "x": 0,
+            "x": 400,
             "y": 200,
-            "w": 62,
-            "h": 48
+            "w": 35,
+            "h": 45
         },
         {
             "id": 1,
             "x": 0,
-            "y": 800,
-            "w": 49,
-            "h": 29
+            "y": 400,
+            "w": 37,
+            "h": 37
         },
         {
             "id": 2,
-            "x": 400,
+            "x": 0,
             "y": 200,
-            "w": 67,
-            "h": 30
+            "w": 70,
+            "h": 39
         },
         {
             "id": 3,
-            "x": 0,
-            "y": 0,
-            "w": 58,
-            "h": 26
+            "x": 400,
+            "y": 600,
+            "w": 48,
+            "h": 22
         },
         {
             "id": 4,
             "x": 0,
-            "y": 1000,
-            "w": 43,
-            "h": 41
+            "y": 800,
+            "w": 33,
+            "h": 33
         },
         {
             "id": 5,
-            "x": 400,
-            "y": 0,
-            "w": 60,
-            "h": 48
+            "x": 0,
+            "y": 600,
+            "w": 42,
+            "h": 59
         },
         {
             "id": 6,
             "x": 400,
             "y": 400,
-            "w": 54,
+            "w": 58,
             "h": 30
         },
         {
             "id": 7,
-            "x": 0,
-            "y": 600,
-            "w": 68,
-            "h": 29
+            "x": 400,
+            "y": 800,
+            "w": 52,
+            "h": 52
         },
         {
             "id": 8,
-            "x": 800,
+            "x": 0,
             "y": 0,
             "w": 48,
-            "h": 24
+            "h": 53
         },
         {
             "id": 9,
-            "x": 0,
-            "y": 400,
-            "w": 68,
-            "h": 42
+            "x": 400,
+            "y": 0,
+            "w": 67,
+            "h": 58
         }
     ],
     "workflow": [
         {
-            "source": 0,
-            "target": 6,
-            "quantity": 18
-        },
-        {
             "source": 1,
-            "target": 6,
-            "quantity": 14
-        },
-        {
-            "source": 2,
-            "target": 8,
+            "target": 3,
             "quantity": 19
         },
         {
-            "source": 3,
-            "target": 2,
-            "quantity": 17
+            "source": 1,
+            "target": 0,
+            "quantity": 12
         },
         {
-            "source": 4,
-            "target": 5,
+            "source": 1,
+            "target": 7,
+            "quantity": 10
+        },
+        {
+            "source": 2,
+            "target": 3,
             "quantity": 16
         },
         {
             "source": 4,
-            "target": 2,
-            "quantity": 13
-        },
-        {
-            "source": 4,
             "target": 6,
-            "quantity": 15
+            "quantity": 19
         },
         {
             "source": 5,
-            "target": 8,
+            "target": 6,
+            "quantity": 18
+        },
+        {
+            "source": 8,
+            "target": 9,
+            "quantity": 20
+        },
+        {
+            "source": 8,
+            "target": 3,
             "quantity": 17
-        },
-        {
-            "source": 6,
-            "target": 8,
-            "quantity": 17
-        },
-        {
-            "source": 7,
-            "target": 2,
-            "quantity": 19
-        },
-        {
-            "source": 9,
-            "target": 5,
-            "quantity": 15
-        },
-        {
-            "source": 9,
-            "target": 2,
-            "quantity": 19
         }
     ]
 }

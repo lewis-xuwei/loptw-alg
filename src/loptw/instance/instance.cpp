@@ -37,6 +37,10 @@ const Instance::Pool<Workflow>& Instance::workflows() const {
   return workflows_;
 }
 
+double Instance::transport_cost() const {
+  return transport_cost_;
+}
+
 std::shared_ptr<Instance> Instance::FromPath(const std::string path) {
   using namespace nlohmann;
 
@@ -51,6 +55,8 @@ std::shared_ptr<Instance> Instance::FromPath(const std::string path) {
 
   auto instance = std::make_shared<Instance>();
   instance->set_instance_path(path);
+
+  instance->transport_cost_ = instance_json["transport_cost"];
 
   for (auto building_json : instance_json["buildings"]) {
     auto building = std::make_shared<Building>(building_json["id"],

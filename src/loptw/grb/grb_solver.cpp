@@ -114,7 +114,7 @@ void GRBSolver::AddObjective() {
     int j = workflow->target_;
     int f_ij = workflow->quantity_;
 
-    obj += f_ij * d[i][j];
+    obj += inst->transport_cost() * f_ij * d[i][j];
   }
 
   model->setObjective(obj, GRB_MINIMIZE);

@@ -37,6 +37,7 @@ public:
   const Pool<Building>& buildings() const;
   const Pool<TaskNode>& tasknodes() const;
   const Pool<Workflow>& workflows() const;
+  double transport_cost() const;
 
   /// @brief Read instance from path
   /// @param path
@@ -57,8 +58,7 @@ public:
   /// @param building
   /// @param overwrite
   /// @return true if a build object is added, otherwise false
-  bool AddBuilding(const std::shared_ptr<Building> building,
-                   bool overwrite = false);
+  bool AddBuilding(const std::shared_ptr<Building> building, bool overwrite = false);
 
   /// @brief Remove a builing with building id
   /// @param building_id
@@ -69,8 +69,7 @@ public:
   /// @param tasknode
   /// @param overwrite
   /// @return true if a task node is added, otherwise false
-  bool AddTaskNode(const std::shared_ptr<TaskNode> tasknode,
-                   bool overwrite = false);
+  bool AddTaskNode(const std::shared_ptr<TaskNode> tasknode, bool overwrite = false);
 
   /// @brief Remove a task node with tasknode_id
   /// @param tasknode_id
@@ -81,8 +80,7 @@ public:
   /// @param workflow
   /// @param overwrite
   /// @return true if a workflow is added, otherwise false
-  bool AddWorkflow(const std::shared_ptr<Workflow> workflow,
-                   bool overwrite = false);
+  bool AddWorkflow(const std::shared_ptr<Workflow> workflow, bool overwrite = false);
 
   /// @brief Remove a workflow from source to target
   /// @param source
@@ -94,6 +92,7 @@ private:
   Pool<Building> buildings_;
   Pool<TaskNode> tasknodes_;
   Pool<Workflow> workflows_;
+  double transport_cost_;
 
 private:
   std::string instance_path_;
