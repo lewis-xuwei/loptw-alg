@@ -8,6 +8,9 @@
 ///           COPYRIGHT @ 2026
 ///======================================================
 
+#ifndef __LOPTW_ALG_INCLUDE_LOPTW_ALG_TABULIST_H__
+#define __LOPTW_ALG_INCLUDE_LOPTW_ALG_TABULIST_H__
+
 #include <vector>
 
 namespace loptw::alg {
@@ -29,3 +32,5 @@ private:
 };
 
 } // namespace loptw::alg
+
+#endif // __LOPTW_ALG_INCLUDE_LOPTW_ALG_TABULIST_H__
