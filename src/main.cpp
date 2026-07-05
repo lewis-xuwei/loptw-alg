@@ -5,7 +5,7 @@
 #include <fmt/core.h>
 #include <fmt/ranges.h>
 
-#include <loptw/alg/state.h>
+#include <loptw/alg/solution.h>
 #include <loptw/grb/grb_solver.h>
 #include <loptw/instance/instance.h>
 
@@ -22,10 +22,6 @@ void GurobiOptimize() {
 }
 
 int main(int argc, char* argv[]) {
-  using namespace loptw::instance;
-
-  auto instance = Instance::FromPath("../../data/test1.json");
-  auto param = std::make_shared<loptw::alg::Parameter>();
-  loptw::alg::State state = loptw::alg::State::Initialization(instance, param);
+  GurobiOptimize();
   return 0;
 }
