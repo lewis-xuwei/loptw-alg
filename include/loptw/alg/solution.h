@@ -1,6 +1,6 @@
 ///======================================================
 /// Project :   loptw-alg
-/// File    :   state.h
+/// File    :   solution.h
 ///------------------------------------------------------
 /// Time    :   2026/06/28 11:13:02
 /// Author  :   xuwei <lewis.xuwei@outlook.com>
@@ -14,7 +14,7 @@
 
 namespace loptw::alg {
 
-class State {
+class Solution {
 public:
   // Calculate the objective
   double Objective() const;
@@ -23,11 +23,12 @@ public:
   void PrintResult() const;
 
   // Initial solution for loptw
-  static State Initialization(std::shared_ptr<instance::Instance> inst,
-                              std::shared_ptr<Parameter> param);
+  static Solution Initialization(std::shared_ptr<instance::Instance> inst,
+                                 std::shared_ptr<Parameter> param);
 
-  static State RandomRemoval(const State& state, alns::RandomState& rnd_state);
-  static State BestRepair(const State& state, alns::RandomState& rnd_state);
+  static Solution RandomRemoval(const Solution& state, alns::RandomState& rnd_state);
+  static Solution RandomRepair(const Solution& state, alns::RandomState& rnd_state);
+  static Solution BestRepair(const Solution& state, alns::RandomState& rnd_state);
 
 private:
   std::vector<SolBuilding> buildings_;   // solution for each building

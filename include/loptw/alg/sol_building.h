@@ -20,7 +20,7 @@ namespace loptw::alg {
 // task-list
 // i-j relation by greedy decoding
 class SolBuilding {
-  friend class State;
+  friend class Solution;
 
 public:
   SolBuilding(std::shared_ptr<instance::Instance> inst,
