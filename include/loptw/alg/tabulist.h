@@ -16,6 +16,7 @@ class TabuList {
 public:
   TabuList();
   TabuList(int size, int tenure);
+  ~TabuList() = default;
 
   void AddTabu(int i, int j);
   bool Tabued(int i, int j);
