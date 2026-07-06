@@ -15,10 +15,8 @@ namespace loptw::alg {
 
 SolBuilding::SolBuilding(std::shared_ptr<instance::Instance> inst,
                          int building_id,
-                         const std::vector<int>& task_list,
-                         std::shared_ptr<std::vector<std::vector<int>>> left_,
-                         std::shared_ptr<std::vector<std::vector<int>>> top_) :
-  building_id_{building_id}, left_{left_}, top_{top_} {
+                         const std::vector<int>& task_list) :
+  building_id_{building_id} {
   for (int task : task_list) {
     Placement placement;
     placement.taskid = task;
@@ -124,7 +122,8 @@ void SolBuilding::Decode() {
 
 // left[i][j] = 1 means i is in the left of j
 // top[i][j] = 1 means i is in the top of j
-void SolBuilding::PosRelation() {
+void SolBuilding::PosRelation(std::vector<std::vector<int>>& left,
+                              std::vector<std::vector<int>>& top) {
   for (int i = 0; i < task_list_.size(); i++) {
     double w_i = inst_->tasknodes().at(task_list_[i].taskid)->width_;
     double h_i = inst_->tasknodes().at(task_list_[i].taskid)->length_;
@@ -141,16 +140,16 @@ void SolBuilding::PosRelation() {
 
       if (task_list_[i].placed && task_list_[j].placed) {
         if (task_list_[i].x + w_i <= task_list_[j].x) {
-          (*left_)[task_list_[i].taskid][task_list_[j].taskid] = 1;
+          left[task_list_[i].taskid][task_list_[j].taskid] = 1;
         }
         if (task_list_[j].x + w_j <= task_list_[i].x) {
-          (*left_)[task_list_[j].taskid][task_list_[i].taskid] = 1;
+          left[task_list_[j].taskid][task_list_[i].taskid] = 1;
         }
         if (task_list_[i].y + h_i <= task_list_[j].y) {
-          (*top_)[task_list_[i].taskid][task_list_[j].taskid] = 1;
+          top[task_list_[i].taskid][task_list_[j].taskid] = 1;
         }
         if (task_list_[j].y + h_j <= task_list_[i].y) {
-          (*top_)[task_list_[j].taskid][task_list_[i].taskid] = 1;
+          top[task_list_[j].taskid][task_list_[i].taskid] = 1;
         }
       }
     }
