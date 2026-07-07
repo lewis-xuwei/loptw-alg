@@ -181,13 +181,32 @@ void LPModel::AddVariables() {
 }
 
 double LPModel::ObjValue() {
-  return 0;
+  if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
+    return model->get(GRB_DoubleAttr_Obj);
+  }
+
+  return std::numeric_limits<double>::infinity();
 }
 
-void LPModel::GetSolution() {}
+void LPModel::GetSolution(std::vector<double>& xsol, std::vector<double>& ysol) {
+  if (model->get(GRB_IntAttr_Status) == GRB_OPTIMAL) {
+    xsol = std::vector<double>();
+    ysol = std::vector<double>();
+    for (int i = 0; i < N; ++i) {
+      xsol.push_back(this->x[i].get(GRB_DoubleAttr_X));
+      ysol.push_back(this->y[i].get(GRB_DoubleAttr_X));
+    }
+  }
+}
 
 int LPModel::Optimize() {
-  return 0;
+  AddVariables();
+  AddObjective();
+  AddConstriants();
+
+  model->optimize();
+
+  return model->get(GRB_IntAttr_Status);
 }
 
 } // namespace loptw::alg

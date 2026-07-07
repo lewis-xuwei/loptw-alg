@@ -34,7 +34,7 @@ public:
   int Optimize();
 
   double ObjValue();
-  void GetSolution();
+  void GetSolution(std::vector<double>& xsol, std::vector<double>& ysol);
 
 private:
   void AddObjective();
