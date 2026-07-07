@@ -8,6 +8,7 @@
 ///           COPYRIGHT @ 2026
 ///======================================================
 
+#include <loptw/alg/lp_model.h>
 #include <loptw/alg/solution.h>
 
 namespace loptw::alg {
@@ -60,6 +61,22 @@ void Solution::Decode() {
       }
     }
   }
+}
+
+// reoptimization
+void Solution::Reoptimization() {
+  // get the l, m, p, z, r
+  Decode();
+
+  LPModel lp_model(inst_,
+                   std::shared_ptr<std::vector<int>>(&p_),
+                   std::shared_ptr<std::vector<int>>(&r_),
+                   std::shared_ptr<std::vector<std::vector<int>>>(&z_),
+                   std::shared_ptr<std::vector<std::vector<int>>>(&left_),
+                   std::shared_ptr<std::vector<std::vector<int>>>(&top_));
+  status_ = lp_model.Optimize();
+  obj_ = lp_model.ObjValue();
+  lp_model.GetSolution(x_, y_);
 }
 
 } // namespace loptw::alg

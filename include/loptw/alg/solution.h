@@ -33,8 +33,9 @@ public:
   bool operator<(const Solution& solution) const;
 
   std::shared_ptr<Solution> Copy();
-  bool IsFeasible();
-  void Decode(); // analyze l,m,z,p,r
+  bool IsFeasible(); // each task node is served and lp problem is optimal
+  void Decode();     // analyze l,m,z,p,r
+  void Reoptimization();
 
 private:
   std::shared_ptr<instance::Instance> inst_;
@@ -50,9 +51,12 @@ private:
   //------------ shared memory for all buildings ------------
   std::vector<std::vector<int>> left_; // left[i][j] = 1 => i is in the left of j
   std::vector<std::vector<int>> top_;  // top[i][j] = 1 => i is in the top of j
-  std::vector<std::vector<int>> z_;    // z[i][t] =1 => i is located in building t
-  std::vector<int> p_;                 // p[t] = 1 => building t is used
-  std::vector<int> r_;                 // r[i] = 1 => task node is rotated when placed
+
+  std::vector<std::vector<int>> z_; // z[i][t] =1 => i is located in building t
+  std::vector<int> p_;              // p[t] = 1 => building t is used
+  std::vector<int> r_;              // r[i] = 1 => task node is rotated when placed
+  std::vector<double> x_;           // x coordination
+  std::vector<double> y_;           // y coordination
 
   double obj_; // obtain from lp problem
   int status_; // 0: lp optimal; otherwise, infeasible
