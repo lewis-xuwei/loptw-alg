@@ -15,11 +15,15 @@ namespace loptw::alg {
 
 SolBuilding::SolBuilding(std::shared_ptr<instance::Instance> inst,
                          int building_id,
-                         const std::vector<int>& task_list) :
+                         const std::vector<int>& task_list,
+                         const std::vector<bool>& rotated) :
   building_id_{building_id} {
-  for (int task : task_list) {
+  for (int i = 0; i < task_list.size(); ++i) {
+    int taskid = task_list[i];
+    bool rotate = rotated[i];
     Placement placement;
-    placement.taskid = task;
+    placement.taskid = taskid;
+    placement.rotated = rotate;
 
     task_list_.push_back(placement);
   }

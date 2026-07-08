@@ -13,9 +13,12 @@
 
 namespace loptw::alg {
 
-// Parameter struct for ALNS algorithm
+// Parameter struct for tabu search algorithm
 struct Parameter {
   int max_iters;                // maximum number of iterations
+  int max_nonimp;               // maximum number of non-improvement
+  int num_cand;                 // number of candidate
+  int num_tenure;               // the number of iterations when is put into tabu list
   double initial_temperature;   // initial temperature for simulated annealing
   double cooling_rate;          // cooling rate for simulated annealing
   double decay_rate;            // decay rate for adaptive weight adjustment

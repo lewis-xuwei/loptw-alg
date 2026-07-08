@@ -20,6 +20,8 @@
 namespace loptw::alg {
 
 class Solution {
+  friend class TabuSearch;
+
 public:
   Solution(std::shared_ptr<instance::Instance> inst, std::shared_ptr<Parameter> parameter);
   ~Solution() = default;

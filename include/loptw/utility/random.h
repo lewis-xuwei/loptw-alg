@@ -36,6 +36,9 @@ public:
 
   /// @brief shuffle a vector of integers
   static void Shuffle(std::vector<int>& vec);
+
+  /// @brief generate a random permutation of [start, ..., start+n)
+  static std::vector<int> RandomPermutation(int n, int start = 0);
 };
 
 } // namespace loptw::utility

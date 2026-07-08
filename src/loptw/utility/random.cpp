@@ -42,4 +42,14 @@ void Random::Shuffle(std::vector<int>& vec) {
   std::shuffle(vec.begin(), vec.end(), Random::gen_);
 }
 
+std::vector<int> Random::RandomPermutation(int n, int start) {
+  std::vector<int> perm;
+  perm.reserve(n);
+  for (int i = 0; i < n; ++i) {
+    perm.push_back(start + i);
+  }
+  Random::Shuffle(perm);
+  return std::move(perm);
+}
+
 } // namespace loptw::utility

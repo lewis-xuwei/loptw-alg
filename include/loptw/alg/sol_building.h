@@ -21,11 +21,13 @@ namespace loptw::alg {
 // i-j relation by greedy decoding
 class SolBuilding {
   friend class Solution;
+  friend class TabuSearch;
 
 public:
   SolBuilding(std::shared_ptr<instance::Instance> inst,
               int building_id,
-              const std::vector<int>& task_list);
+              const std::vector<int>& task_list,
+              const std::vector<bool>& rotated);
 
 public:
   int Size() const;
