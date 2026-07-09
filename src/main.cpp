@@ -6,6 +6,7 @@
 #include <fmt/ranges.h>
 
 #include <loptw/alg/solution.h>
+#include <loptw/alg/tabusearch.h>
 #include <loptw/grb/grb_solver.h>
 #include <loptw/instance/instance.h>
 
@@ -22,6 +23,8 @@ void GurobiOptimize() {
 }
 
 int main(int argc, char* argv[]) {
-  GurobiOptimize();
+  auto instance = loptw::instance::Instance::FromPath("../../data/test1.json");
+  auto tabusearch = loptw::alg::TabuSearch(instance, nullptr);
+  auto sol = tabusearch.Initialization();
   return 0;
 }

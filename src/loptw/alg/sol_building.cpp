@@ -17,7 +17,7 @@ SolBuilding::SolBuilding(std::shared_ptr<instance::Instance> inst,
                          int building_id,
                          const std::vector<int>& task_list,
                          const std::vector<bool>& rotated) :
-  building_id_{building_id} {
+  inst_{inst}, building_id_{building_id} {
   for (int i = 0; i < task_list.size(); ++i) {
     int taskid = task_list[i];
     bool rotate = rotated[i];

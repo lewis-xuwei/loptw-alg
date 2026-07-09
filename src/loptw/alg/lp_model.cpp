@@ -193,8 +193,8 @@ void LPModel::GetSolution(std::vector<double>& xsol, std::vector<double>& ysol) 
     xsol = std::vector<double>();
     ysol = std::vector<double>();
     for (int i = 0; i < N; ++i) {
-      xsol.push_back(this->x[i].get(GRB_DoubleAttr_X));
-      ysol.push_back(this->y[i].get(GRB_DoubleAttr_X));
+      xsol.push_back(x[i].get(GRB_DoubleAttr_X));
+      ysol.push_back(y[i].get(GRB_DoubleAttr_X));
     }
   }
 }
